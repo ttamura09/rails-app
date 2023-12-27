@@ -1,4 +1,4 @@
-table_names = %w(customers administrators airports airlines) # シードデータを投入したいテーブルをここに追加
+table_names = %w(customers administrators airports airlines airmodels) # シードデータを投入したいテーブルをここに追加
 table_names.each do |table_name|
   path = Rails.root.join("db/seeds", Rails.env, table_name + ".rb")
   if File.exist?(path)
