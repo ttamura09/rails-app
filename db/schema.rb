@@ -10,12 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_27_054613) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_27_061913) do
   create_table "administrators", force: :cascade do |t|
     t.string "name", null: false
     t.string "login_name", null: false
     t.string "password", null: false
     t.string "password_confirmation", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "alph_name", null: false
+    t.string "login_name", null: false
+    t.integer "sex", default: 1, null: false
+    t.date "birthday", null: false
+    t.string "password", null: false
+    t.string "password_confirmation", null: false
+    t.string "email", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
