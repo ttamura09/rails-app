@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_27_074433) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_27_080333) do
   create_table "administrators", force: :cascade do |t|
     t.string "name", null: false
     t.string "login_name", null: false
@@ -55,6 +55,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_27_074433) do
     t.string "email", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "seats", force: :cascade do |t|
+    t.integer "airmodel_id"
+    t.string "number", null: false
+    t.string "seat_class", null: false
+    t.integer "price", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["airmodel_id"], name: "index_seats_on_airmodel_id"
   end
 
 end
