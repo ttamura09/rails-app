@@ -9,4 +9,6 @@
   欠航情報<br>
   他言語切り替え<br>
   <br>
+  <%= render "shared/customer_login_form" unless current_customer %>
+  <%= link_to "ログアウト", :session, method: :delete, data: { confirm: "ログアウトしますか？" } if current_customer %>
 </p>
