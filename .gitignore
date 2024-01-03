@@ -29,3 +29,4 @@
 /config/master.key
 # Ignore configuration file for MacOS.
 .DS_Store
+.idea

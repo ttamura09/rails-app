@@ -6,8 +6,7 @@ class CreateCustomers < ActiveRecord::Migration[7.0]
       t.string :login_name, null: false # ログイン名
       t.integer :sex, null: false, default: 1 # 性別(1:男性, 2:女性)
       t.date :birthday, null: false # 生年月日
-      t.string :password, null: false # パスワード
-      t.string :password_confirmation, null: false # 確認用パスワード
+      t.string :password_digest, null: false # パスワード
       t.string :email, null: false # メールアドレス
 
       t.timestamps
