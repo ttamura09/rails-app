@@ -1,0 +1,2 @@
+class BookingSeatFlight < ApplicationRecord
+end
