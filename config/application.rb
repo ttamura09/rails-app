@@ -36,5 +36,8 @@ module Blue
 
     # タイムゾーンの設定
     config.time_zone = "Tokyo"
+
+    # dbのタイムゾーンの設定
+    config.active_record.default_timezone = :local
   end
 end
