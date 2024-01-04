@@ -1,6 +1,5 @@
 <% @page_title = "トップページ" %>
-<h1>トップ画面</h1>
-<%= link_to "フライト一覧(仮)", :flights %><br>
+<h1><%= @page_title %></h1>
 
 <!--フライト検索フォーム-->
 <%= render "shared/flights_search_form" %>
@@ -10,5 +9,4 @@
   他言語切り替え<br>
   <br>
   <%= render "shared/customer_login_form" unless current_customer %>
-  <%= link_to "ログアウト", :session, method: :delete, data: { confirm: "ログアウトしますか？" } if current_customer %>
 </p>

@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   resources :flights, only: [:index, :show]
 
   resource :session, only: [:create, :destroy]
+  resource :account
 end
