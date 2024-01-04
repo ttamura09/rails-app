@@ -71,7 +71,7 @@ div#container {
 /* 左の枠（コンテンツを入れる） */
 main {
     float: left;
-    width: 530px;
+    /*width: 530px;*/
     padding: 10px 10px 10px 0;
 }
 
