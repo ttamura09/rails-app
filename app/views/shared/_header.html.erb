@@ -1,0 +1,16 @@
+<%= image_tag "logo.png", size: "272x48", alt: "Blue Ticket" %>
+<!--ログインしているなら、名前とログアウトのリンクを表示-->
+<% if current_customer %>
+  <ul class="account-menu">
+    <%= menu_link_to current_customer.name + "さん", :account %>
+    <%= menu_link_to "ログアウト", :session, method: :delete, data: { confirm: "ログアウトしますか？" } %>
+  </ul>
+<% end %>
+
+<nav class="menubar">
+  <ul>
+    <%= menu_link_to "TOP", :root %>
+    <%= menu_link_to "マイページ", :account if current_customer %>
+    <%= menu_link_to "予約確認", "#" if current_customer %>
+  </ul>
+</nav>
