@@ -30,16 +30,16 @@
     <%= label_tag :time, "時刻" %>
     <%= time_field_tag :time, params[:time] %>
 
-    <%= label_tag :selected, "出発" %>
-    <%= radio_button_tag :selected, "departure", params[:selected] == "departure" %>
+    <%= label_tag :selected_time_type, "出発" %>
+    <%= radio_button_tag :selected_time_type, "departure", params[:selected_time_type] == "departure" %>
 
-    <%= label_tag :selected, "到着" %>
-    <%= radio_button_tag :selected, "arrival", params[:selected] == "arrival" %>
+    <%= label_tag :selected_time_type, "到着" %>
+    <%= radio_button_tag :selected_time_type, "arrival", params[:selected_time_type] == "arrival" %>
   </div>
 
   <div>
     <%= label_tag :seat_class, "クラス" %>
-    <%= select_tag :seat_class, options_for_select(%w(エコノミー ビジネス ファースト), params[:seat_class]) %>
+    <%= select_tag :seat_class, options_for_select([%w[エコノミー economy], %w[ビジネス business], %w[ファースト first]], params[:seat_class]) %>
   </div>
 
   <%= submit_tag "検索" %>
