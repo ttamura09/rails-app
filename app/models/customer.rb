@@ -22,4 +22,8 @@ class Customer < ApplicationRecord
 
   # email
   validates :email, email: { allow_blank: true }
+
+  # パスワード
+  attr_accessor :current_password
+  validates :password, presence: { if: :current_password }
 end
