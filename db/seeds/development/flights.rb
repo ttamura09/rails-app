@@ -97,7 +97,8 @@ random = Random.new # 飛行機のクラスを決める
       Flight.create(
         name: "#{airline_names[alnum - 1]}#{alnum}#{flight_num}便", # 便番号の百の位は航空会社(1:JAL 2:ANA 3:PEACH)
         airline_id: alnum,
-        airmodel_id: random.rand(1..3),
+        # airmodel_id: random.rand(1..3),
+        airmodel_id: alnum,
         departure_date: dep_time.to_date,
         departure_time: dep_time,
         arrival_date: (dep_time + duration.minutes).to_date,
