@@ -11,7 +11,8 @@
 
   <div class="flights_search">
     <%= label_tag :departure_date, "出発日" %>
-    <%= date_field_tag :departure_date, (params[:departure_date] ? params[:departure_date] : Time.now.to_date), min: Time.now.to_date %>
+    <%= date_field_tag :departure_date, (params[:departure_date] ? params[:departure_date] : Time.now.to_date) %>
+    <%#= date_field_tag :departure_date, (params[:departure_date] ? params[:departure_date] : Time.now.to_date), min: Time.now.to_date %>
   </div>
 
   <div class="flights_search">

@@ -5,7 +5,7 @@
 <%= render "shared/flights_search_form" %>
 
 <% if @flights.present? %>
-  <table>
+  <table class="list">
     <tr>
       <th>id</th>
       <th>便名</th>
@@ -14,6 +14,7 @@
       <th>出発時刻・到着時刻</th>
       <th>料金</th>
       <th>空席</th>
+      <th>予約リンク</th>
     </tr>
     <% @flights.each do |flight| %>
       <tr>
@@ -27,7 +28,12 @@
         <td><%= "#{flight.departure_time.strftime("%H:%M")} → #{flight.arrival_time.strftime("%H:%M")}" %></td>
         <td><%= "¥#{flight.sum_price(params[:seat_class])}" %></td>
         <td><%= (seat_nums >= 10 ? "空席あり⚪︎" : "残り#{seat_nums}席") %></td>
-        <td><%= link_to "予約へ進む", [flight, :seats, seat_class: params[:seat_class]] %></td>
+        <td><%= link_to "予約へ進む", [:new, flight, :booking, request.query_parameters] %></td>
+
+        <!--デバッグ用-->
+        <% economy_nums, business_nums, first_nums = [flight.airmodel.economy_nums, flight.airmodel.business_nums, flight.airmodel.first_nums] %>
+        <td><%= "#{economy_nums} #{business_nums} #{first_nums}" %></td>
+        <td><%= seat_nums %></td>
       </tr>
     <% end %>
   </table>

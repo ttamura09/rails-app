@@ -1,0 +1,100 @@
+<%= render "shared/errors", obj: @booking %>
+
+<table class="att">
+  <%= form.label :passenger1_name, "搭乗者1" %>
+  <tr>
+    <th><%= form.label :passenger1_name, "氏名" %></th>
+    <td><%= form.text_field :passenger1_name %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :passenger1_birthday, "誕生日",
+                       for: "customer_birthday_1i" %></th>
+    <td><%= form.date_select :passenger1_birthday,
+                             start_year: 1940, end_year: Time.current.year,
+                             use_month_numbers: true %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :passenger1_telephone_number, "電話番号" %></th>
+    <td><%= form.text_field :passenger1_telephone_number %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :passenger1_email, "メールアドレス" %></th>
+    <td><%= form.text_field :passenger1_email %></td>
+  </tr>
+</table>
+
+<table class="att">
+  <%= form.label :passenger2_name, "搭乗者2" %>
+  <tr>
+    <th><%= form.label :passenger2_name, "氏名" %></th>
+    <td><%= form.text_field :passenger2_name %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :passenger2_birthday, "誕生日",
+                       for: "customer_birthday_2i" %></th>
+    <td><%= form.date_select :passenger2_birthday,
+                             start_year: 1940, end_year: Time.current.year,
+                             use_month_numbers: true %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :passenger2_telephone_number, "電話番号" %></th>
+    <td><%= form.text_field :passenger2_telephone_number %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :passenger2_email, "メールアドレス" %></th>
+    <td><%= form.text_field :passenger2_email %></td>
+  </tr>
+</table>
+
+<table class="att">
+  <%= form.label :passenger3_name, "搭乗者3" %>
+  <tr>
+    <th><%= form.label :passenger3_name, "氏名" %></th>
+    <td><%= form.text_field :passenger3_name %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :passenger3_birthday, "誕生日",
+                       for: "customer_birthday_3i" %></th>
+    <td><%= form.date_select :passenger3_birthday,
+                             start_year: 1940, end_year: Time.current.year,
+                             use_month_numbers: true %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :passenger3_telephone_number, "電話番号" %></th>
+    <td><%= form.text_field :passenger3_telephone_number %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :passenger3_email, "メールアドレス" %></th>
+    <td><%= form.text_field :passenger3_email %></td>
+  </tr>
+</table>
+
+<table>
+  <%= form.label :payment_method, "決済方法" %>
+  <tr>
+    <th><%= form.label :payment_method, "クレジットカード" %></th>
+    <td><%= form.radio_button :payment_method, "credit_card" %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :payment_method, "PayPay" %></th>
+    <td><%= form.radio_button :payment_method, "PayPay" %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :payment_method, "コンビニ払い" %></th>
+    <td><%= form.radio_button :payment_method, "convenience_store_payment" %></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <%= form.label :seat_ids, "座席の選択" %>
+    <% @seats.each do |seat| %>
+      <% if seat.seat_class == params[:seat_class] %>
+        <td>
+          <%= check_box_tag "booking[seat_ids][]", seat.id %>
+          <%= label_tag "booking_seat_ids_#{seat.id}", seat.number %>
+        </td>
+      <% end %>
+    <% end %>
+  </tr>
+</table>

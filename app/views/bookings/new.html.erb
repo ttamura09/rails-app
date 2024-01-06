@@ -1,0 +1,26 @@
+<td><%= link_to "便の一覧へ戻る", [:flights, request.query_parameters] %></td>
+
+<table>
+  <tr>
+    <th>航空会社/便</th>
+    <th>出発 → 到着</th>
+    <th>日付</th>
+    <th>時刻</th>
+    <th>クラス</th>
+    <th>料金</th>
+  </tr>
+  <tr>
+    <td><%= @flight.name %></td>
+    <td><%= "#{@flight.origin.name} → #{@flight.destination.name}" %></td>
+    <td><%= @flight.departure_date.strftime("%Y/%m/%d") %></td>
+    <td><%= "#{@flight.departure_time.strftime("%H:%M")} → #{@flight.arrival_time.strftime("%H:%M")}" %></td>
+    <td><%= seat_class_map[params[:seat_class]] %>
+    <td><%= "¥#{@flight.sum_price(params[:seat_class])}" %></td>
+  </tr>
+</table>
+
+<%= form_for [@flight, @booking] do |form| %>
+  <%= render "shared/booking_form", form: form %>
+  <div><%= form.submit %></div>
+<% end %>
+シート表示

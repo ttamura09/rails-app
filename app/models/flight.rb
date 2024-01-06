@@ -6,6 +6,7 @@ class Flight < ApplicationRecord
 
   has_many :bookings
   has_many :booking_seat_flights
+  has_many :seats, through: :booking_seat_flights
 
   def sum_price(seat_class)
     seat = airmodel.seats.find_by(seat_class: seat_class)
