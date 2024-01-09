@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   resource :session, only: [:create, :destroy]
   resource :account, only: [:show, :edit, :update, :new, :create, :destroy] do
-    resources :bookings, only: [:index, :show]
+    resources :bookings, only: [:index, :show, :edit, :update]
   end
   resource :password, only: [:show, :edit, :update]
 end

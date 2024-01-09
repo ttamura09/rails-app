@@ -28,7 +28,7 @@ class Booking < ApplicationRecord
 
   validate do
     seat_ids.each do |seat_id|
-      next unless BookingSeatFlight.exists?(seat_id: seat_id, flight_id: flight_id)
+      next unless BookingSeatFlight.where(seat_id: seat_id, flight_id: flight_id).where.not(booking_id: id).exists?
       errors.add(:base, "Seat #{Seat.find(seat_id).number} is already booked for flight #{Flight.find(flight_id).name}.")
     end
   end

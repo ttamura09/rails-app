@@ -17,6 +17,11 @@ class BookingsController < ApplicationController
     @number_of_passengers = params[:number_of_passengers].to_i
   end
 
+  def edit
+    @account = current_customer
+    @booking = @account.bookings.find(params[:id])
+  end
+
   def create
     @booking = Booking.new(booking_params)
     @flight = Flight.find(params[:flight_id])
@@ -38,6 +43,19 @@ class BookingsController < ApplicationController
       redirect_to :root, notice: "予約が完了しました。"
     else
       render "new"
+    end
+  end
+
+  def update
+    @account = current_customer
+    @booking = @account.bookings.find(params[:id])
+    @booking.booking_seat_flights.each do |booking_seat_flight|
+      booking_seat_flight.update(checkin: 1)
+    end
+    if @booking.save
+      redirect_to [:account, @booking], notice: "チェックインを完了しました。"
+    else
+      render "edit"
     end
   end
 
