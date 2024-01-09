@@ -43,5 +43,10 @@
     <%= select_tag :seat_class, options_for_select([%w[エコノミー economy], %w[ビジネス business], %w[ファースト first]], params[:seat_class]) %>
   </div>
 
+  <div>
+    <%= label_tag :number_of_passengers, "予約人数" %>
+    <%= select_tag :number_of_passengers, options_for_select([%w[1人 1], %w[2人 2], %w[3人 3]], params[:number_of_passengers]) %>
+
+  </div>
   <%= submit_tag "検索" %>
 <% end %>

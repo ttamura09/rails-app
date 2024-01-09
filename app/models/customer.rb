@@ -21,7 +21,7 @@ class Customer < ApplicationRecord
   validates :birthday, comparison: { less_than: Time.current.to_date }
 
   # email
-  validates :email, email: { allow_blank: true }
+  validates :email, presence: true, email: { allow_blank: true }
 
   # パスワード
   attr_accessor :current_password

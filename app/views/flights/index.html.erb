@@ -4,39 +4,41 @@
 <!--フライト検索フォーム-->
 <%= render "shared/flights_search_form" %>
 
-<% if @flights.present? %>
-  <table class="list">
+<% bookable_flights_count = 0 %>
+<table class="list">
+  <tr>
+    <th>id</th>
+    <th>便名</th>
+    <th>出発地・到着地</th>
+    <th>日付</th>
+    <th>出発時刻・到着時刻</th>
+    <th>料金</th>
+    <th>空席</th>
+    <th>予約リンク</th>
+  </tr>
+  <% @flights.each do |flight| %>
     <tr>
-      <th>id</th>
-      <th>便名</th>
-      <th>出発地・到着地</th>
-      <th>日付</th>
-      <th>出発時刻・到着時刻</th>
-      <th>料金</th>
-      <th>空席</th>
-      <th>予約リンク</th>
+      <% seat_nums = flight.calc_seat_nums(params[:seat_class]) %>
+      <% next if seat_nums == 0 %>
+      <% bookable_flights_count += 1 %>
+
+      <td><%= flight.id %></td>
+      <td><%= flight.name %></td>
+      <td><%= "#{flight.origin.name} → #{flight.destination.name}" %></td>
+      <td><%= flight.departure_date.strftime("%Y/%m/%d") %></td>
+      <td><%= "#{flight.departure_time.strftime("%H:%M")} → #{flight.arrival_time.strftime("%H:%M")}" %></td>
+      <td><%= "¥#{flight.sum_price(params[:seat_class])}" %></td>
+      <td><%= (seat_nums >= 10 ? "空席あり⚪︎" : "残り#{seat_nums}席") %></td>
+      <td><%= link_to "予約へ進む", [:new, flight, :booking, seat_class: params[:seat_class], number_of_passengers: params[:number_of_passengers]] %></td>
+
+      <!--デバッグ用-->
+      <% economy_nums, business_nums, first_nums = [flight.airmodel.economy_nums, flight.airmodel.business_nums, flight.airmodel.first_nums] %>
+      <td><%= "#{economy_nums} #{business_nums} #{first_nums}" %></td>
+      <td><%= seat_nums %></td>
     </tr>
-    <% @flights.each do |flight| %>
-      <tr>
-        <% seat_nums = flight.calc_seat_nums(params[:seat_class]) %>
-        <% next if seat_nums == 0 %>
+  <% end %>
+</table>
 
-        <td><%= flight.id %></td>
-        <td><%= flight.name %></td>
-        <td><%= "#{flight.origin.name} → #{flight.destination.name}" %></td>
-        <td><%= flight.departure_date.strftime("%Y/%m/%d") %></td>
-        <td><%= "#{flight.departure_time.strftime("%H:%M")} → #{flight.arrival_time.strftime("%H:%M")}" %></td>
-        <td><%= "¥#{flight.sum_price(params[:seat_class])}" %></td>
-        <td><%= (seat_nums >= 10 ? "空席あり⚪︎" : "残り#{seat_nums}席") %></td>
-        <td><%= link_to "予約へ進む", [:new, flight, :booking, request.query_parameters] %></td>
-
-        <!--デバッグ用-->
-        <% economy_nums, business_nums, first_nums = [flight.airmodel.economy_nums, flight.airmodel.business_nums, flight.airmodel.first_nums] %>
-        <td><%= "#{economy_nums} #{business_nums} #{first_nums}" %></td>
-        <td><%= seat_nums %></td>
-      </tr>
-    <% end %>
-  </table>
-<% else %>
+<% if bookable_flights_count == 0 %>
   <p>ご指定の搭乗日、区間では予約可能な便がございません。</p>
 <% end %>

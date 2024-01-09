@@ -14,4 +14,8 @@ module ApplicationHelper
       end
     end
   end
+
+  def seat_class_map
+    { "economy" => "エコノミー", "business" => "ビジネス", "first" => "ファースト" }
+  end
 end

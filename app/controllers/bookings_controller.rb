@@ -1,25 +1,43 @@
 class BookingsController < ApplicationController
+  def index
+    @bookings = current_customer.bookings
+    @past_bookings = @bookings.select { |booking| booking.flight.departure_date < Date.today }
+    @future_bookings = @bookings.select { |booking| booking.flight.departure_date >= Date.today }
+  end
+
+  def show
+    @booking = Booking.find(params[:id])
+    @number_of_passengers = @booking.seats.size
+  end
+
   def new
     @flight = Flight.find(params[:flight_id])
-    @seats = @flight.airmodel.seats
     @booking = Booking.new
+    @seat_class = params[:seat_class]
+    @number_of_passengers = params[:number_of_passengers].to_i
   end
 
   def create
     @booking = Booking.new(booking_params)
     @flight = Flight.find(params[:flight_id])
+    @seat_class = params[:booking][:seat_class]
+    @number_of_passengers = params[:booking][:number_of_passengers].to_i
+    @booking.number_of_passengers = @number_of_passengers
+    selected_seat_count = (booking_params[:seat_ids] ? booking_params[:seat_ids].size : 0)
+    if @number_of_passengers != selected_seat_count
+      flash[:notice] = "選択された席の数が予約人数と一致していません。"
+    end
 
     @booking.customer = current_customer
     @booking.flight = @flight
-    @booking.total_price = @flight.sum_price("first")
-
-    if @booking.save
+    @booking.total_price = @flight.sum_price(@seat_class) * @number_of_passengers
+    if @number_of_passengers == selected_seat_count && @booking.save
       @booking.booking_seat_flights.each do |booking_seat_flight|
         booking_seat_flight.update(flight_id: @flight.id)
       end
       redirect_to :root, notice: "予約が完了しました。"
     else
-      redirect_to :root, notice: "予約に失敗しました..."
+      render "new"
     end
   end
 
@@ -31,5 +49,4 @@ class BookingsController < ApplicationController
       :payment_method, seat_ids: []
     )
   end
-
 end

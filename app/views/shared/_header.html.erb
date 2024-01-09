@@ -11,6 +11,6 @@
   <ul>
     <%= menu_link_to "TOP", :root %>
     <%= menu_link_to "マイページ", :account if current_customer %>
-    <%= menu_link_to "予約確認", "#" if current_customer %>
+    <%= menu_link_to "予約確認", [:account, :bookings] if current_customer %>
   </ul>
 </nav>
