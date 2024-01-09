@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resource :account, only: [:show, :edit, :update, :new, :create, :destroy] do
     resources :bookings, only: [:index, :show, :edit, :update]
   end
+
   namespace :admin do
     root "top#index"
     resource :session, only: [:new, :create, :destroy]
@@ -16,6 +17,11 @@ Rails.application.routes.draw do
       resources :bookings, only: [:update]
     end
   end
-
   resources :customers, only: [:index, :show, :destroy]
+
+  namespace :air do
+    root "top#index"
+    resource :session, only: [:new, :create, :destroy]
+    resources :flights, only: [:show, :new, :create]
+  end
 end

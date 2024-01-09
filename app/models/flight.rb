@@ -8,6 +8,17 @@ class Flight < ApplicationRecord
   has_many :booking_seat_flights
   has_many :seats, through: :booking_seat_flights
 
+  validates :name, presence: true
+  validates :airline_id, presence: true
+  validates :origin_id, presence: true
+  validates :destination_id, presence: true
+  validates :airmodel_id, presence: true
+  validates :departure_date, presence: true
+  validates :departure_time, presence: true
+  validates :arrival_date, presence: true
+  validates :arrival_time, presence: true
+  validates :price, presence: true
+
   def sum_price(seat_class)
     seat = airmodel.seats.find_by(seat_class: seat_class)
     seat_price = seat&.price || 0

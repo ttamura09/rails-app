@@ -1,0 +1,56 @@
+<% @page_title = "便の詳細" %>
+<h1><%= @page_title %></h1>
+<%= link_to "便の操作へ戻る", [:new, :air, :flight] %>
+
+<table class="list">
+  <tr>
+    <th>id</th>
+    <th>便名</th>
+    <th>出発地・到着地</th>
+    <th>日付</th>
+    <th>出発時刻・到着時刻</th>
+    <th>機体名</th>
+    <th>エコノミー・ビジネス・ファースト料金</th>
+    <th>エコノミー・ビジネス・ファーストの席数</th>
+  </tr>
+  <tr>
+    <td><%= @flight.id %></td>
+    <td><%= @flight.name %></td>
+    <td><%= "#{@flight.origin.name} → #{@flight.destination.name}" %></td>
+    <td><%= @flight.departure_date.strftime("%Y/%m/%d") %></td>
+    <td><%= "#{@flight.departure_time.strftime("%H:%M")} → #{@flight.arrival_time.strftime("%H:%M")}" %></td>
+    <td><%= @flight.airmodel.name %></td>
+    <td><%= "¥#{@flight.price} ¥#{@flight.price + 2000} ¥#{@flight.price + 10000}" %></td>
+
+    <% economy_nums, business_nums, first_nums = [@flight.airmodel.economy_nums, @flight.airmodel.business_nums, @flight.airmodel.first_nums] %>
+    <td><%= "#{economy_nums} #{business_nums} #{first_nums}" %></td>
+  </tr>
+</table>
+
+
+<table class="attr">
+  <tr>
+    <th>
+      座席
+      <p>予約可能:⚪︎</p>
+      <p>チェックイン完了:☑️</p>
+      <p>予約済み︎×</p></th>
+    <td>
+      <% @flight.airmodel.seats.each_with_index do |seat, i| %>
+        <% seat_status = @flight.booking_seat_flights.find_by(seat_id: seat.id) %>
+        <%
+          mark = if seat_status.nil?
+                   "⚪︎"
+                 elsif seat_status.checkin
+                   "☑️︎"
+                 else
+                   "×"
+                 end
+        %>
+        <%= seat.number %><%= mark %>
+        <% if (i + 1) % 6 == 0 %><br>
+        <% end %>
+      <% end %>
+    </td>
+  </tr>
+</table>

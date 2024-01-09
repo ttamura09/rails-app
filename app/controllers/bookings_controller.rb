@@ -28,6 +28,7 @@ class BookingsController < ApplicationController
     @flight = Flight.find(params[:flight_id])
     @seat_class = params[:booking][:seat_class]
     @number_of_passengers = params[:booking][:number_of_passengers].to_i
+
     @booking.number_of_passengers = @number_of_passengers
     selected_seat_count = (booking_params[:seat_ids] ? booking_params[:seat_ids].size : 0)
     if @number_of_passengers != selected_seat_count

@@ -1,0 +1,43 @@
+<% @page_title = "便の操作" %>
+<h1><%= @page_title %></h1>
+
+<%= link_to "航空会社トップへ戻る", [:air, :root] %>
+<% bookable_flights_count = 0 %>
+<table class="list">
+  <tr>
+    <th>id</th>
+    <th>便名</th>
+    <th>出発地・到着地</th>
+    <th>日付</th>
+    <th>出発時刻・到着時刻</th>
+    <th>機体名</th>
+    <th>エコノミー・ビジネス・ファースト料金</th>
+    <th>エコノミー・ビジネス・ファーストの席数</th>
+    <th>便の詳細</th>
+  </tr>
+  <% @flights.each do |flight| %>
+    <tr>
+      <% bookable_flights_count += 1 %>
+      <td><%= flight.id %></td>
+      <td><%= flight.name %></td>
+      <td><%= "#{flight.origin.name} → #{flight.destination.name}" %></td>
+      <td><%= flight.departure_date.strftime("%Y/%m/%d") %></td>
+      <td><%= "#{flight.departure_time.strftime("%H:%M")} → #{flight.arrival_time.strftime("%H:%M")}" %></td>
+      <td><%= flight.airmodel.name %></td>
+      <td><%= "¥#{flight.price} ¥#{flight.price+2000} ¥#{flight.price+10000}" %></td>
+      <% economy_nums, business_nums, first_nums = [flight.airmodel.economy_nums, flight.airmodel.business_nums, flight.airmodel.first_nums] %>
+      <td><%= "#{economy_nums} #{business_nums} #{first_nums}" %></td>
+      <td><%= link_to "詳細へ進む", [:air, flight] %></td>
+    </tr>
+  <% end %>
+</table>
+
+<% if bookable_flights_count == 0 %>
+  <p>予約された便がありません。</p>
+<% end %>
+
+<p>便の追加</p>
+<%= form_for [:air, @flight] do |form| %>
+  <%= render "shared/flight_form", form: form %>
+  <div><%= form.submit %></div>
+<% end %>

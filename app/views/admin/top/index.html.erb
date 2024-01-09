@@ -1,9 +1,3 @@
 <% @page_title = "管理者トップページ" %>
 <h1><%= @page_title %></h1>
 <%= link_to "顧客検索", :customers %>
-<table>
-  <% if current_administrator %>
-    <td><%= current_administrator.name + "さん" %></td>
-    <td><%= link_to "ログアウト", [:admin, :session], method: :delete, data: { confirm: "ログアウトしますか？" } %></td>
-  <% end %>
-</table>
