@@ -8,5 +8,8 @@
   欠航情報<br>
   他言語切り替え<br>
   <br>
-  <%= render "shared/customer_login_form" unless current_customer %>
 </p>
+
+<%= link_to "ログインページ", [:new, :session] unless current_customer %>
+<%= link_to "会員登録はこちら", [:new, :account] unless current_customer %>
+<%= link_to "管理者ログインページ", [:new, :admin, :session] %>

@@ -1,4 +1,5 @@
 class BookingsController < ApplicationController
+  before_action :login_required
   def index
     @bookings = current_customer.bookings
     @past_bookings = @bookings.select { |booking| booking.flight.departure_date < Date.today }

@@ -65,9 +65,7 @@
 <table class="attr">
   <tr>
     <th>チェックイン</th>
-    <td>
-      <%= (@booking.booking_seat_flights.first.checkin ? "完了" : "未完了") %>
-    </td>
+    <td><%= (@booking.booking_seat_flights.first.checkin ? "完了" : "未完了") %></td>
     <td><%= link_to "チェックイン", [:edit, :account, @booking] %></td>
   </tr>
 </table>

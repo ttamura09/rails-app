@@ -4,9 +4,18 @@ Rails.application.routes.draw do
     resources :bookings, only: [:new, :create]
   end
 
-  resource :session, only: [:create, :destroy]
+  resource :session, only: [:new, :create, :destroy]
+  resource :password, only: [:show, :edit, :update]
   resource :account, only: [:show, :edit, :update, :new, :create, :destroy] do
     resources :bookings, only: [:index, :show, :edit, :update]
   end
-  resource :password, only: [:show, :edit, :update]
+  namespace :admin do
+    root "top#index"
+    resource :session, only: [:new, :create, :destroy]
+    resources :customers, only: [] do
+      resources :bookings, only: [:update]
+    end
+  end
+
+  resources :customers, only: [:index, :show, :destroy]
 end

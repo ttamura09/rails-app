@@ -1,0 +1,56 @@
+<%= link_to "アカウント検索ページへ戻る", :customers %>
+<table class="list">
+  <tr>
+    <th>名前</th>
+    <th>アルファベット名</th>
+    <th>ログイン名</th>
+    <th>性別</th>
+    <th>誕生日</th>
+    <th>E-mail</th>
+    <th>削除</th>
+  </tr>
+  <tr>
+    <td><%= @customer.name %></td>
+    <td><%= @customer.alph_name %></td>
+    <td><%= @customer.login_name %></td>
+    <td><%= (@customer.sex == 1 ? "男性" : "女性") %></td>
+    <td><%= @customer.birthday %></td>
+    <td><%= @customer.email %></td>
+    <td><%= link_to "アカウントを削除", @customer, method: :delete,
+                    data: { confirm: "本当に削除しますか?" } %></td>
+  </tr>
+</table>
+
+<table class="list">
+  <tr>
+    <th>会社/便名</th>
+    <th>出発地→到着地</th>
+    <th>日付</th>
+    <th>時間</th>
+    <th>クラス</th>
+    <th>予約人数</th>
+    <th>合計料金</th>
+    <th>決済方法</th>
+    <th>チェックイン状況</th>
+    <th>チェックイン</th>
+  </tr>
+  <% @bookings.each do |booking| %>
+    <tr>
+      <td><%= booking.flight.name %></td>
+      <td><%= "#{booking.flight.origin.name} → #{booking.flight.destination.name}" %></td>
+      <td><%= booking.flight.departure_date.strftime("%Y/%m/%d") %></td>
+      <td><%= "#{booking.flight.departure_time.strftime("%H:%M")} → #{booking.flight.arrival_time.strftime("%H:%M")}" %></td>
+      <td><%= seat_class_map[booking.seats.first.seat_class] %>
+      <td><%= "#{booking.seats.size}人" %>
+      <td><%= "¥#{booking.total_price}" %></td>
+      <td><%= booking.payment_method %></td>
+      <td><%= (booking.booking_seat_flights.first.checkin ? "完了" : "未完了") %></td>
+      <td><%= form_for [:admin, @customer, booking] do |form| %>
+          <%= render "shared/errors", obj: booking %>
+          <div><%= form.submit "チェックイン" %></div>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
