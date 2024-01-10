@@ -1,38 +1,39 @@
-<%= link_to "アカウント検索ページへ戻る", :customers %>
+<%= link_to t("admin.return_to_customer_search"), :customers %>
 <table class="list">
   <tr>
-    <th>名前</th>
-    <th>アルファベット名</th>
-    <th>ログイン名</th>
-    <th>性別</th>
-    <th>誕生日</th>
-    <th>E-mail</th>
-    <th>削除</th>
+    <th><%= t("account.name") %></th>
+    <th><%= t("account.alph_name") %></th>
+    <th><%= t("account.login_name") %></th>
+    <th><%= t("account.gender") %></th>
+    <th><%= t("account.birthday") %></th>
+    <th><%= t("account.email") %></th>
+    <th><%= t("account.delete") %></th>
   </tr>
   <tr>
     <td><%= @customer.name %></td>
     <td><%= @customer.alph_name %></td>
     <td><%= @customer.login_name %></td>
-    <td><%= (@customer.sex == 1 ? "男性" : "女性") %></td>
+    <td><%= (@customer.sex == 1 ? t("account.options.male") : t("account.options.female")) %></td>
     <td><%= @customer.birthday %></td>
     <td><%= @customer.email %></td>
-    <td><%= link_to "アカウントを削除", @customer, method: :delete,
-                    data: { confirm: "本当に削除しますか?" } %></td>
+    <td><%= link_to t("account.delete_account"), @customer, method: :delete,
+                    data: { confirm: t("account.delete_confirm") } %></td>
   </tr>
 </table>
 
 <table class="list">
   <tr>
-    <th>会社/便名</th>
-    <th>出発地→到着地</th>
-    <th>日付</th>
-    <th>時間</th>
-    <th>クラス</th>
-    <th>予約人数</th>
-    <th>合計料金</th>
-    <th>決済方法</th>
-    <th>チェックイン状況</th>
-    <th>チェックイン</th>
+    <th><%= t("bookings.table.airline_flight") %></th>
+    <th><%= t("bookings.table.origin_destination") %></th>
+    <th><%= t("bookings.table.date") %></th>
+    <th><%= t("bookings.table.times") %></th>
+    <th><%= t("bookings.table.class") %></th>
+    <th><%= t("bookings.table.number_of_passengers") %></th>
+    <th><%= t("bookings.table.total_price") %></th>
+    <th><%= t("bookings.table.payment_method") %></th>
+    <th><%= t("bookings.passenger.checkin_status") %></th>
+    <th><%= t("bookings.passenger.check_in") %></th>
+    <th><%= t("bookings.delete_booking") %></th>
   </tr>
   <% @bookings.each do |booking| %>
     <tr>
@@ -41,15 +42,16 @@
       <td><%= booking.flight.departure_date.strftime("%Y/%m/%d") %></td>
       <td><%= "#{booking.flight.departure_time.strftime("%H:%M")} → #{booking.flight.arrival_time.strftime("%H:%M")}" %></td>
       <td><%= seat_class_map[booking.seats.first.seat_class] %>
-      <td><%= "#{booking.seats.size}人" %>
+      <td><%= "#{booking.seats.size}" %>
       <td><%= "¥#{booking.total_price}" %></td>
       <td><%= booking.payment_method %></td>
-      <td><%= (booking.booking_seat_flights.first.checkin ? "完了" : "未完了") %></td>
+      <td><%= (booking.booking_seat_flights.first.checkin ? t("bookings.passenger.completed") : t("bookings.passenger.not_completed")) %></td>
       <td><%= form_for [:admin, @customer, booking] do |form| %>
           <%= render "shared/errors", obj: booking %>
-          <div><%= form.submit "チェックイン" %></div>
+          <div><%= form.submit t("bookings.passenger.check_in") %></div>
         <% end %>
       </td>
+      <td><%= link_to t("bookings.delete_booking"), [:admin, @customer, booking], method: :delete, data: { confirm: t("bookings.delete_confirm") } %></td>
     </tr>
   <% end %>
 </table>

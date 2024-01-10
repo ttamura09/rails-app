@@ -1,6 +1,9 @@
 en:
   english: "English"
   japanese: "Japanese"
+  errors_message: "Please correct the errors below."
+  login_error_message: "Login name and password do not match"
+
   top_page:
     page_title: "Top Page"
     cancellation_information: "Cancellation Information"
@@ -19,6 +22,12 @@ en:
       signup: "Sign up"
       admin_login: "Admin Login Page"
       airline_login: "Airline Login Page"
+
+  admin:
+    top_page_title: "Administrator Top Page"
+    customer_search: "Customer search"
+    return_to_top: "Return to administrator top"
+    return_to_customer_search: "Return to customer search page"
 
   flights_search_form:
     labels:
@@ -56,8 +65,10 @@ en:
         male: "Male"
         female: "Female"
 
-  customer_login_form:
-    page_title: "Login"
+  login_form:
+    customer_page_title: "Login"
+    admin_page_title: "Administrator Login"
+    air_page_title: "Airline Login"
     username: "Username"
     password: "Password"
     submit: "Login"
@@ -119,6 +130,8 @@ en:
     seat_mismatch: "The number of selected seats does not match the number of passengers."
     booking_success: "Booking completed successfully."
     checkin_success: "Check-in completed successfully."
+    checkin_failed: "Check-in failed."
+    deleted: "Your booking has been deleted."
 
     index_page_title: "Booking Confirmation"
     booking_information: "Booking information"
@@ -144,12 +157,14 @@ en:
       email: "Email Address"
       seat: "Booked Seats"
       class: "Class"
-      checkin: "Check-In"
+      checkin_status: "Check-in status"
       checkin_link: "Proceed to Check-In"
+      check_in: "Check-In"
       completed: "Completed"
       not_completed: "Not Completed"
+    delete_booking: "Cancel booking"
+    delete_confirm: "Do you really want to delete this?"
 
-  errors_message: "Please correct the errors below."
   activerecord:
     attributes:
       booking:
@@ -170,6 +185,11 @@ en:
       male: "Male"
       female: "Female"
     birthday: "Birthday"
+    email: "E-mail"
+    details: "Details"
+    account_details: "Account Details"
+    user_name: "Username"
+    delete: "Delete"
 
     change_password: "Change Password"
     delete_account: "Delete Account"

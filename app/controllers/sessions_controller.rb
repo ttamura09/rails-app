@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
       cookies.signed[:customer_id] = { value: customer.id, expires: 1.day.from_now }
       redirect_to :root
     else
-      flash.alert = "ログイン名とパスワードが一致しません"
+      flash.alert = t("login_error_message")
       redirect_to [:new, :session]
     end
   end

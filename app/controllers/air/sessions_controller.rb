@@ -9,7 +9,7 @@ class Air::SessionsController < Air::Base
       cookies.signed[:airline_id] = { value: airline.id, expires: 1.day.from_now }
       redirect_to [:air, :root]
     else
-      flash.alert = "ログイン名とパスワードが一致しません"
+      flash.alert = t("login_error_message")
       redirect_to [:new, :air, :session]
     end
   end

@@ -2,7 +2,7 @@ class Booking < ApplicationRecord
   belongs_to :flight
   belongs_to :customer
 
-  has_many :booking_seat_flights
+  has_many :booking_seat_flights, dependent: :destroy
   has_many :seats, through: :booking_seat_flights
 
   attr_accessor :number_of_passengers

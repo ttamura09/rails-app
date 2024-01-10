@@ -1,30 +1,30 @@
-<%= link_to "管理者トップへ戻る", [:admin, :root] %>
+<%= link_to t("admin.return_to_top"), [:admin, :root] %>
 <%= form_tag :customers, method: :get do %>
   <div>
-    <label>ユーザー名：</label>
+    <label><%= t("account.user_name") %>：</label>
     <%= text_field_tag :login_name, params[:login_name] %>
   </div>
 <% end %>
 
 <table class="list">
   <tr>
-    <th>名前</th>
-    <th>アルファベット名</th>
-    <th>ログイン名</th>
-    <th>性別</th>
-    <th>誕生日</th>
-    <th>E-mail</th>
-    <th>詳細</th>
+    <th><%= t("account.name") %></th>
+    <th><%= t("account.alph_name") %></th>
+    <th><%= t("account.login_name") %></th>
+    <th><%= t("account.gender") %></th>
+    <th><%= t("account.birthday") %></th>
+    <th><%= t("account.email") %></th>
+    <th><%= t("account.details") %></th>
   </tr>
   <% @customers.each do |customer| %>
     <tr>
       <td><%= customer.name %></td>
       <td><%= customer.alph_name %></td>
       <td><%= customer.login_name %></td>
-      <td><%= (customer.sex == 1 ? "男性" : "女性") %></td>
+      <td><%= (customer.sex == 1 ? t("account.options.male") : t("account.options.female")) %></td>
       <td><%= customer.birthday %></td>
       <td><%= customer.email %></td>
-      <td><%= link_to "アカウント詳細", customer %></td>
+      <td><%= link_to t("account.account_details"), customer %></td>
     </tr>
   <% end %>
 </table>

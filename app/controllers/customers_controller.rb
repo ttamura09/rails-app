@@ -17,6 +17,6 @@ class CustomersController < Admin::Base
   def destroy
     @customer = Customer.find(params[:id])
     @customer.destroy
-    redirect_to :customers, notice: "アカウントを削除しました。"
+    redirect_to :customers, notice: t("account.deleted")
   end
 end

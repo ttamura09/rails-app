@@ -65,5 +65,5 @@
 </table>
 <%= form_for [:account, @booking] do |form| %>
   <%= render "shared/errors", obj: @booking %>
-  <div><%= form.submit "チェックイン" %></div>
+  <div><%= form.submit t("bookings.passenger.check_in") %></div>
 <% end %>

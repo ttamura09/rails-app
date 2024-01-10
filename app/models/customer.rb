@@ -1,10 +1,10 @@
 class Customer < ApplicationRecord
   has_secure_password
 
-  has_many :bookings
+  has_many :bookings, dependent: :destroy
 
   # 名前
-  validates :name, presence: true, length: { maximum: 20 }
+  validates :name, presence: true, length: { minimum: 2, maximum: 20, allow_blank: true }
 
   # アルファベット名
   validates :alph_name, presence: true,
@@ -25,5 +25,6 @@ class Customer < ApplicationRecord
 
   # パスワード
   attr_accessor :current_password
-  validates :password, presence: { if: :current_password }
+  validates :password, presence: { if: :current_password },
+            length: { minimum: 2, maximum: 20, allow_blank: true }
 end

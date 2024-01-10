@@ -11,6 +11,7 @@
     <th><%= t("bookings.table.total_price") %></th>
     <th><%= t("bookings.table.payment_method") %></th>
     <th><%= t("bookings.return_to_list") %></th>
+    <th><%= t("bookings.delete_booking") %></th>
   </tr>
   <tr>
     <td><%= @booking.flight.name %></td>
@@ -22,6 +23,7 @@
     <td><%= "¥#{@booking.total_price}" %></td>
     <td><%= @booking.payment_method %></td>
     <td><%= link_to t("bookings.return_to_list"), [:account, :bookings] %></td>
+    <td><%= link_to t("bookings.delete_booking"), [:account, :booking], method: :delete, data: { confirm: t("bookings.delete_confirm") } %></td>
   </tr>
 </table>
 
@@ -66,7 +68,7 @@
 
 <table class="attr">
   <tr>
-    <th><%= t("bookings.passenger.checkin") %></th>
+    <th><%= t("bookings.passenger.checkin_status") %></th>
     <td><%= (@booking.booking_seat_flights.first.checkin ? t("bookings.passenger.completed") : t("bookings.passenger.not_completed")) %></td>
     <td><%= link_to t("bookings.passenger.checkin_link"), [:edit, :account, @booking] %></td>
   </tr>

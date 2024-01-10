@@ -43,7 +43,7 @@ class BookingsController < ApplicationController
       @booking.booking_seat_flights.each do |booking_seat_flight|
         booking_seat_flight.update(flight_id: @flight.id)
       end
-      redirect_to :root, notice: I18n.t("bookings.booking_success")
+      redirect_to :root, notice: t("bookings.booking_success")
     else
       render "new"
     end
@@ -56,10 +56,17 @@ class BookingsController < ApplicationController
       booking_seat_flight.update(checkin: 1)
     end
     if @booking.save
-      redirect_to [:account, @booking], notice: I18n.t("bookings.checkin_success")
+      redirect_to [:account, @booking], notice: t("bookings.checkin_success")
     else
       render "edit"
     end
+  end
+
+  def destroy
+    @account = current_customer
+    @booking = @account.bookings.find(params[:id])
+    @booking.destroy
+    redirect_to [:account, :bookings], notice: t("bookings.deleted")
   end
 
   private def booking_params
