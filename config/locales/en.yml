@@ -1,33 +1,124 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   "true": "foo"
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  top_page:
+    page_title: "Top Page"
+    cancellation_information: "Cancellation Information"
+    table:
+      id: "ID"
+      flight_name: "Flight Name"
+      origin_destination: "Origin・Destination"
+      date: "Date"
+      times: "Departure・Arrival Time"
+      status: "Status"
+    operation_status:
+      operating: "Operating"
+      cancelled: "Cancelled"
+    links:
+      login: "Login"
+      signup: "Sign up"
+      admin_login: "Admin Login Page"
+      airline_login: "Airline Login Page"
+
+  flights_search_form:
+    labels:
+      origin: "Origin"
+      destination: "Destination"
+      departure_date: "Departure Date"
+      price: "Price"
+      time: "Time"
+      departure_time: "Departure"
+      arrival_time: "Arrival"
+      seat_class: "Class"
+      number_of_passengers: "Number of Passengers"
+    options:
+      economy: "Economy"
+      business: "Business"
+      first: "First"
+    select_prompt: "Please select"
+    submit: "Search"
+
+  new_account:
+    page_title: "Create New Account"
+    submit: "Create"
+
+  customer_form:
+    form:
+      labels:
+        name: "Name"
+        alph_name: "Alphabetical Name"
+        login_name: "Login Name"
+        gender: "Gender"
+        birthday: "Birthday"
+        password: "Password"
+        email: "Email Address"
+      options:
+        male: "Male"
+        female: "Female"
+
+  customer_login_form:
+    page_title: "Login"
+    username: "Username"
+    password: "Password"
+    submit: "Login"
+
+  flights:
+    page_title: "Flight List"
+    table:
+      name: "Flight Name"
+      origin_destination: "Origin・Destination"
+      date: "Date"
+      times: "Departure・Arrival Time"
+      price: "Price"
+      seats: "Seats Available"
+      booking_link: "Booking link"
+      seats_available: "Seats Available ⚪︎"
+      seats_left: "seats"
+      options:
+        economy: "Economy"
+        business: "Business"
+        first: "First"
+      book_now: "Proceed to Booking"
+    no_flights: "No flights available for your selected criteria."
+    flash:
+      select_origin_and_destination: "Please select both origin and destination."
+      select_origin: "Please select the origin."
+      select_destination: "Please select the destination."
+      different_airports: "Origin and destination must be different airports."
+
+  booking_new:
+    page_title: "Book a Flight"
+    table:
+      airline_flight: "Airline / Flight"
+      origin_destination: "Origin・Destination"
+      date: "Date"
+      times: "Departure & Arrival Time"
+      class: "Class"
+      number_of_passengers: "Number of Passengers"
+      total_price: "Total Price"
+    submit: "submit"
+
+  booking_form:
+    passenger: "Passenger %{number}"
+    name: "Name"
+    birthday: "Birthday"
+    telephone_number: "Telephone Number"
+    email: "Email Address"
+    payment_method: "Payment Method"
+    payment_methods:
+      credit_card: "Credit Card"
+      paypay: "PayPay"
+      convenience_store: "Convenience Store Payment"
+    seat_selection: "Seat Selection"
+    seat_status:
+      available: "Available"
+      checked_in: "Checked-in"
+      booked: "Booked"
+
+  bookings:
+    seat_mismatch: "The number of selected seats does not match the number of passengers."
+    booking_success: "Booking completed successfully."
+    checkin_success: "Check-in completed successfully."
+
+  activerecord:
+    attributes:
+      booking:
+        seat_already_booked: "Seat %{seat_number} is already booked for flight %{flight_name}."

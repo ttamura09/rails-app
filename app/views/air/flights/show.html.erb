@@ -34,20 +34,12 @@
       座席
       <p>予約可能:⚪︎</p>
       <p>チェックイン完了:☑️</p>
-      <p>予約済み︎×</p></th>
+      <p>予約済み︎×</p>
+      <!--      booking/new, booking_formを参考に-->
+    </th>
     <td>
       <% @flight.airmodel.seats.each_with_index do |seat, i| %>
-        <% seat_status = @flight.booking_seat_flights.find_by(seat_id: seat.id) %>
-        <%
-          mark = if seat_status.nil?
-                   "⚪︎"
-                 elsif seat_status.checkin
-                   "☑️︎"
-                 else
-                   "×"
-                 end
-        %>
-        <%= seat.number %><%= mark %>
+        <%= seat.number %><%= @flight.seat_status_mark(seat) %>
         <% if (i + 1) % 6 == 0 %><br>
         <% end %>
       <% end %>

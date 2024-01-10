@@ -1,5 +1,6 @@
 class BookingsController < ApplicationController
   before_action :login_required
+
   def index
     @bookings = current_customer.bookings
     @past_bookings = @bookings.select { |booking| booking.flight.departure_date < Date.today }
@@ -32,7 +33,7 @@ class BookingsController < ApplicationController
     @booking.number_of_passengers = @number_of_passengers
     selected_seat_count = (booking_params[:seat_ids] ? booking_params[:seat_ids].size : 0)
     if @number_of_passengers != selected_seat_count
-      flash[:notice] = "選択された席の数が予約人数と一致していません。"
+      flash[:notice] = t("bookings.seat_mismatch")
     end
 
     @booking.customer = current_customer
@@ -42,7 +43,7 @@ class BookingsController < ApplicationController
       @booking.booking_seat_flights.each do |booking_seat_flight|
         booking_seat_flight.update(flight_id: @flight.id)
       end
-      redirect_to :root, notice: "予約が完了しました。"
+      redirect_to :root, notice: I18n.t("bookings.booking_success")
     else
       render "new"
     end
@@ -55,7 +56,7 @@ class BookingsController < ApplicationController
       booking_seat_flight.update(checkin: 1)
     end
     if @booking.save
-      redirect_to [:account, @booking], notice: "チェックインを完了しました。"
+      redirect_to [:account, @booking], notice: I18n.t("bookings.checkin_success")
     else
       render "edit"
     end

@@ -47,10 +47,21 @@ class Flight < ApplicationRecord
     res
   end
 
+  def seat_status_mark(seat)
+    seat_status = booking_seat_flights.find_by(seat_id: seat.id)
+    if seat_status.nil?
+      "⚪︎" # 予約可能
+    elsif seat_status.checkin
+      "☑️︎" # チェックイン完了
+    else
+      "×" # 予約済み
+    end
+  end
+
   class << self
     # フライト検索用メソッド
     def search(params)
-      results = order("id")
+      results = order("id").where(operation: 1)
 
       # 出発地・到着地の絞り込み
       if params[:origin].present? && params[:destination].present?
@@ -70,7 +81,7 @@ class Flight < ApplicationRecord
                   else 10000
                   end
         min_price = params[:min_price].to_i - min_adj
-        results = results.where("price >= ?", min_price)
+        results = results.where("price > = ?", min_price)
       end
 
       # 上限料金の絞り込み

@@ -1,5 +1,4 @@
 <%= image_tag "logo.png", size: "272x48", alt: "Blue Ticket" %>
-<!--ログインしているなら、名前とログアウトのリンクを表示-->
 <% if current_customer %>
   <ul class="account-menu">
     <%= menu_link_to current_customer.name + "さん", :account %>
@@ -7,22 +6,18 @@
   </ul>
 <% end %>
 
-<% if controller.kind_of?(Admin::Base) %>
-  <% if current_administrator %>
-    <ul class="account-menu">
-      <%= current_administrator.name + "さん" %>
-      <%= menu_link_to "ログアウト", [:admin, :session], method: :delete, data: { confirm: "ログアウトしますか？" } %>
-    </ul>
-  <% end %>
+<% if controller.kind_of?(Admin::Base) && current_administrator %>
+  <ul class="account-menu">
+    <%= current_administrator.name + "さん" %>
+    <%= menu_link_to "ログアウト", [:admin, :session], method: :delete, data: { confirm: "ログアウトしますか？" } %>
+  </ul>
 <% end %>
 
-<% if controller.kind_of?(Air::Base) %>
-  <% if current_airline %>
-    <ul class="account-menu">
-      <%= current_airline.name + "さん" %>
-      <%= menu_link_to "ログアウト", [:air, :session], method: :delete, data: { confirm: "ログアウトしますか？" } %>
-    </ul>
-  <% end %>
+<% if controller.kind_of?(Air::Base) && current_airline %>
+  <ul class="account-menu">
+    <%= current_airline.name + "さん" %>
+    <%= menu_link_to "ログアウト", [:air, :session], method: :delete, data: { confirm: "ログアウトしますか？" } %>
+  </ul>
 <% end %>
 
 <nav class="menubar">
@@ -30,5 +25,7 @@
     <%= menu_link_to "TOP", :root %>
     <%= menu_link_to "マイページ", :account if current_customer %>
     <%= menu_link_to "予約確認", [:account, :bookings] if current_customer %>
+    <%= menu_link_to "日本語", change_language(:ja) %>
+    <%= menu_link_to "English", change_language(:en) %>
   </ul>
 </nav>

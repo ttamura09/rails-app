@@ -1,32 +1,32 @@
 <%= render "shared/errors", obj: @customer %>
 <table class="attr">
   <tr>
-    <th><%= form.label :name, "名前" %></th>
+    <th><%= form.label :name, t("customer_form.form.labels.name") %></th>
     <td><%= form.text_field :name %></td>
   </tr>
 
   <tr>
-    <th><%= form.label :alph_name, "アルファベット名" %></th>
+    <th><%= form.label :alph_name, t("customer_form.form.labels.alph_name") %></th>
     <td><%= form.text_field :alph_name %></td>
   </tr>
 
   <tr>
-    <th><%= form.label :login_name, "ログイン名" %></th>
+    <th><%= form.label :login_name, t("customer_form.form.labels.login_name") %></th>
     <td><%= form.text_field :login_name %></td>
   </tr>
 
   <tr>
-    <th>性別</th>
+    <th><%= t("customer_form.form.labels.gender") %></th>
     <td>
       <%= form.radio_button :sex, 1 %>
-      <%= form.label :sex_1, "男" %>
+      <%= form.label :sex_1, t("customer_form.form.options.male") %>
       <%= form.radio_button :sex, 2 %>
-      <%= form.label :sex_2, "女" %>
+      <%= form.label :sex_2, t("customer_form.form.options.female") %>
     </td>
   </tr>
 
   <tr>
-    <th><%= form.label :birthday, "誕生日",
+    <th><%= form.label :birthday, t("customer_form.form.labels.birthday"),
                        for: "customer_birthday_1i" %></th>
     <td><%= form.date_select :birthday,
                              start_year: 1940, end_year: Time.current.year,
@@ -35,13 +35,13 @@
 
   <% if @customer.new_record? %>
     <tr>
-      <th><%= form.label :password, "パスワード" %></th>
-      <td><%= form.text_field :password %></td>
+      <th><%= form.label :password, t("customer_form.form.labels.password") %></th>
+      <td><%= form.password_field :password %></td>
     </tr>
   <% end %>
 
   <tr>
-    <th><%= form.label :email, "メールアドレス" %></th>
+    <th><%= form.label :email, t("customer_form.form.labels.email") %></th>
     <td><%= form.text_field :email %></td>
   </tr>
 </table>

@@ -26,6 +26,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem "email_validator", "~> 1.6"
 
+gem 'rails-i18n', '~> 7.0.8'
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 

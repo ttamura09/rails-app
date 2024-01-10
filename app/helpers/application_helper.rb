@@ -18,4 +18,10 @@ module ApplicationHelper
   def seat_class_map
     { "economy" => "エコノミー", "business" => "ビジネス", "first" => "ファースト" }
   end
+
+  def change_language(language)
+    request_params = request.query_parameters
+    request_params[:locale] = language
+    url_for(request_params)
+  end
 end

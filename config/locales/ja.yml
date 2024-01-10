@@ -1,0 +1,145 @@
+ja:
+  top_page:
+    page_title: "トップページ"
+    cancellation_information: "欠航情報"
+    table:
+      id: "ID"
+      flight_name: "便名"
+      origin_destination: "出発地・到着地"
+      date: "日付"
+      times: "出発時刻・到着時刻"
+      status: "運行状況"
+    operation_status:
+      operating: "運行"
+      cancelled: "欠航"
+    links:
+      login: "ログイン"
+      signup: "アカウント登録はこちら"
+      admin_login: "管理者ログインページ"
+      airline_login: "航空会社ログインページ"
+
+  flights_search_form:
+    labels:
+      origin: "出発地"
+      destination: "到着地"
+      departure_date: "出発日"
+      price: "料金"
+      time: "時刻"
+      departure_time: "出発"
+      arrival_time: "到着"
+      seat_class: "クラス"
+      number_of_passengers: "予約人数"
+    options:
+      economy: "エコノミー"
+      business: "ビジネス"
+      first: "ファースト"
+    select_prompt: "選択してください"
+    submit: "検索"
+
+  new_account:
+    page_title: "アカウントの新規作成"
+    submit: "作成"
+
+  customer_form:
+    form:
+      labels:
+        name: "名前"
+        alph_name: "アルファベット名"
+        login_name: "ログイン名"
+        gender: "性別"
+        birthday: "誕生日"
+        password: "パスワード"
+        email: "メールアドレス"
+      options:
+        male: "男性"
+        female: "女性"
+  date:
+    order:
+      - :year
+      - :month
+      - :day
+
+  customer_login_form:
+    page_title: "ログイン"
+    username: "ユーザー名"
+    password: "パスワード"
+    submit: "ログイン"
+
+  flights:
+    page_title: "便の一覧"
+    table:
+      name: "便名"
+      origin_destination: "出発地・到着地"
+      date: "日付"
+      times: "出発時刻・到着時刻"
+      price: "料金"
+      seats: "空席"
+      booking_link: "予約"
+      seats_available: "空席あり⚪︎"
+      seats_left: "席"
+      options:
+        economy: "エコノミー"
+        business: "ビジネス"
+        first: "ファースト"
+      book_now: "予約へ進む"
+    no_flights: "ご指定の搭乗日、区間では予約可能な便がございません。"
+    flash_notice: "出発地と到着地を選択してください。"
+    flash:
+      select_origin_and_destination: "出発地と到着地を選択してください。"
+      select_origin: "出発地を選択してください。"
+      select_destination: "到着地を選択してください。"
+      different_airports: "出発地と到着地は異なる空港を指定してください。"
+
+  booking_new:
+    page_title: "便の予約"
+    table:
+      airline_flight: "航空会社/便"
+      origin_destination: "出発地・到着地"
+      date: "日付"
+      times: "出発時刻・到着時刻"
+      class: "クラス"
+      number_of_passengers: "予約人数"
+      total_price: "合計料金"
+    submit: "予約する"
+
+  booking_form:
+    passenger: "搭乗者%{number}"
+    name: "氏名"
+    birthday: "誕生日"
+    telephone_number: "電話番号"
+    email: "メールアドレス"
+    payment_method: "決済方法"
+    payment_methods:
+      credit_card: "クレジットカード"
+      paypay: "PayPay"
+      convenience_store: "コンビニ払い"
+    seat_selection: "座席の選択"
+    seat_status:
+      available: "予約可能"
+      checked_in: "チェックイン完了"
+      booked: "予約済み"
+
+  bookings:
+    seat_mismatch: "選択された席の数が予約人数と一致していません。"
+    booking_success: "予約が完了しました。"
+    checkin_success: "チェックインを完了しました。"
+
+  activerecord:
+    models:
+      booking: "予約"
+    attributes:
+      booking:
+        passenger1_name: "搭乗者1の氏名"
+        passenger1_birthday: "搭乗者1の誕生日"
+        passenger1_email: "搭乗者1のメールアドレス"
+        passenger1_telephone_number: "搭乗者1の電話番号"
+        passenger2_name: "搭乗者2の氏名"
+        passenger2_birthday: "搭乗者2の誕生日"
+        passenger2_email: "搭乗者2のメールアドレス"
+        passenger2_telephone_number: "搭乗者2の電話番号"
+        passenger3_name: "搭乗者3の氏名"
+        passenger3_birthday: "搭乗者3の誕生日"
+        passenger3_email: "搭乗者3のメールアドレス"
+        passenger3_telephone_number: "搭乗者3の電話番号"
+        payment_method: "支払方法"
+        seat_already_booked: "%{seat_number}は既に%{flight_name}便で予約されています。"

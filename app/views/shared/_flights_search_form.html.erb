@@ -1,55 +1,59 @@
 <%= form_tag :flights, method: :get do %>
   <table class="attr">
     <tr>
-      <th><%= label_tag :origin, "出発地" %></th>
-      <td><%= select_tag :origin, options_for_select(Airport.all.map { |airport| [airport.name, airport.id] }, params[:origin]) %></td>
+      <th><%= label_tag :origin, t("flights_search_form.labels.origin") %></th>
+      <td><%= select_tag :origin, options_for_select(Airport.all.map { |airport| [airport.name, airport.id] }, params[:origin]), include_blank: t("flights_search_form.select_prompt") %></td>
     </tr>
 
     <tr>
-      <th><%= label_tag :destination, "到着地" %></th>
-      <td><%= select_tag :destination, options_for_select(Airport.all.map { |airport| [airport.name, airport.id] }, params[:destination]) %></td>
+      <th><%= label_tag :destination, t("flights_search_form.labels.destination") %></th>
+      <td><%= select_tag :destination, options_for_select(Airport.all.map { |airport| [airport.name, airport.id] }, params[:destination]), include_blank: t("flights_search_form.select_prompt") %></td>
     </tr>
 
     <tr>
-      <th><%= label_tag :departure_date, "出発日" %></th>
+      <th><%= label_tag :departure_date, t("flights_search_form.labels.departure_date") %></th>
       <td><%= date_field_tag :departure_date, (params[:departure_date] ? params[:departure_date] : Time.now.to_date) %></td>
-      <%#= date_field_tag :departure_date, (params[:departure_date] ? params[:departure_date] : Time.now.to_date), min: Time.now.to_date %>
     </tr>
 
     <tr>
-      <th><%= label_tag "料金" %></th>
+      <th><%= label_tag "price", t("flights_search_form.labels.price") %></th>
       <td>
         <%= select_tag :min_price, options_for_select(
           (0..50).map { |n| ["¥#{n * 1000}", n * 1000] }, params[:min_price]
-        ), include_blank: "選択してください" %>
+        ), include_blank: t("flights_search_form.select_prompt") %>
         ~
         <%= select_tag :max_price, options_for_select(
           (0..50).map { |n| ["¥#{n * 1000}", n * 1000] },
           params[:max_price]
-        ), include_blank: "選択してください" %>
+        ), include_blank: t("flights_search_form.select_prompt") %>
       </td>
     </tr>
 
     <tr>
-      <th><%= label_tag :time, "時刻" %></th>
+      <th><%= label_tag :time, t("flights_search_form.labels.time") %></th>
       <td>
         <%= time_field_tag :time, params[:time] %>
-        <%= label_tag :selected_time_type, "出発" %>
+        <%= label_tag :selected_time_type_departure, t("flights_search_form.labels.departure_time") %>
         <%= radio_button_tag :selected_time_type, "departure", params[:selected_time_type] == "departure" %>
-        <%= label_tag :selected_time_type, "到着" %>
+        <%= label_tag :selected_time_type_arrival, t("flights_search_form.labels.arrival_time") %>
         <%= radio_button_tag :selected_time_type, "arrival", params[:selected_time_type] == "arrival" %>
       </td>
     </tr>
 
     <tr>
-      <th><%= label_tag :seat_class, "クラス" %></th>
-      <td><%= select_tag :seat_class, options_for_select([%w[エコノミー economy], %w[ビジネス business], %w[ファースト first]], params[:seat_class]) %></td>
+      <th><%= label_tag :seat_class, t("flights_search_form.labels.seat_class") %></th>
+      <td><%= select_tag :seat_class, options_for_select([
+                                                           [t("flights_search_form.options.economy"), "economy"],
+                                                           [t("flights_search_form.options.business"), "business"],
+                                                           [t("flights_search_form.options.first"), "first"]
+                                                         ], params[:seat_class]), include_blank: t("flights_search_form.select_prompt") %>
+      </td>
     </tr>
 
     <tr>
-      <th><%= label_tag :number_of_passengers, "予約人数" %></th>
-      <td><%= select_tag :number_of_passengers, options_for_select([%w[1人 1], %w[2人 2], %w[3人 3]], params[:number_of_passengers]) %></td>
+      <th><%= label_tag :number_of_passengers, t("flights_search_form.labels.number_of_passengers") %></th>
+      <td><%= select_tag :number_of_passengers, options_for_select([1, 2, 3], params[:number_of_passengers]) %></td>
     </tr>
   </table>
-  <%= submit_tag "検索" %>
+  <%= submit_tag t("flights_search_form.submit") %>
 <% end %>

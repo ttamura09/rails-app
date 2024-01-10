@@ -1,12 +1,15 @@
+<% @page_title = t("booking_new.page_title") %>
+<h1><%= @page_title %></h1>
+
 <table class="list">
   <tr>
-    <th>航空会社/便</th>
-    <th>出発 → 到着</th>
-    <th>日付</th>
-    <th>時刻</th>
-    <th>クラス</th>
-    <th>予約人数</th>
-    <th>合計料金</th>
+    <th><%= t("booking_new.table.airline_flight") %></th>
+    <th><%= t("booking_new.table.origin_destination") %></th>
+    <th><%= t("booking_new.table.date") %></th>
+    <th><%= t("booking_new.table.times") %></th>
+    <th><%= t("booking_new.table.class") %></th>
+    <th><%= t("booking_new.table.number_of_passengers") %></th>
+    <th><%= t("booking_new.table.total_price") %></th>
   </tr>
   <tr>
     <td><%= @flight.name %></td>
@@ -14,12 +17,12 @@
     <td><%= @flight.departure_date.strftime("%Y/%m/%d") %></td>
     <td><%= "#{@flight.departure_time.strftime("%H:%M")} → #{@flight.arrival_time.strftime("%H:%M")}" %></td>
     <td><%= seat_class_map[@seat_class] %>
-    <td><%= "#{@number_of_passengers}人" %></td>
+    <td><%= @number_of_passengers %></td>
     <td><%= "¥#{@flight.sum_price(@seat_class) * @number_of_passengers}" %></td>
   </tr>
 
 </table>
 <%= form_for [@flight, @booking] do |form| %>
   <%= render "shared/booking_form", form: form %>
-  <div><%= form.submit %></div>
+  <div><%= form.submit t("booking_new.submit") %></div>
 <% end %>
