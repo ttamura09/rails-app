@@ -1,14 +1,16 @@
+<% @page_title = t("bookings.show_page_title") %>
+<h1><%= @page_title %></h1>
 <table class="list">
   <tr>
-    <th>会社/便名</th>
-    <th>出発地→到着地</th>
-    <th>日付</th>
-    <th>時間</th>
-    <th>クラス</th>
-    <th>予約人数</th>
-    <th>合計料金</th>
-    <th>決済方法</th>
-    <th>予約一覧</th>
+    <th><%= t("bookings.table.airline_flight") %></th>
+    <th><%= t("bookings.table.origin_destination") %></th>
+    <th><%= t("bookings.table.date") %></th>
+    <th><%= t("bookings.table.times") %></th>
+    <th><%= t("bookings.table.class") %></th>
+    <th><%= t("bookings.table.number_of_passengers") %></th>
+    <th><%= t("bookings.table.total_price") %></th>
+    <th><%= t("bookings.table.payment_method") %></th>
+    <th><%= t("bookings.return_to_list") %></th>
   </tr>
   <tr>
     <td><%= @booking.flight.name %></td>
@@ -16,46 +18,46 @@
     <td><%= @booking.flight.departure_date.strftime("%Y/%m/%d") %></td>
     <td><%= "#{@booking.flight.departure_time.strftime("%H:%M")} → #{@booking.flight.arrival_time.strftime("%H:%M")}" %></td>
     <td><%= seat_class_map[@booking.seats.first.seat_class] %>
-    <td><%= "#{@booking.seats.size}人" %></td>
+    <td><%= "#{@booking.seats.size}" %></td>
     <td><%= "¥#{@booking.total_price}" %></td>
     <td><%= @booking.payment_method %></td>
-    <td><%= link_to "予約一覧へ戻る", [:account, :bookings] %></td>
+    <td><%= link_to t("bookings.return_to_list"), [:account, :bookings] %></td>
   </tr>
 </table>
 
 <table class="attr">
   <tr>
-    <th>氏名</th>
+    <th><%= t("bookings.passenger.name") %></th>
     <td><%= @booking.passenger1_name %></td>
     <%== "<td>#{@booking.passenger2_name}</td>" if @booking.passenger2_name.present? %>
     <%== "<td>#{@booking.passenger3_name}</td>" if @booking.passenger3_name.present? %>
   </tr>
   <tr>
-    <th>誕生日</th>
+    <th><%= t("bookings.passenger.birthday") %></th>
     <td><%= @booking.passenger1_birthday %></td>
     <%== "<td>#{@booking.passenger2_birthday}</td>" if @booking.passenger2_name.present? %>
     <%== "<td>#{@booking.passenger3_birthday}</td>" if @booking.passenger3_name.present? %>
   </tr>
   <tr>
-    <th>電話番号</th>
+    <th><%= t("bookings.passenger.telephone_number") %></th>
     <td><%= @booking.passenger1_telephone_number %></td>
     <%== "<td>#{@booking.passenger2_telephone_number}</td>" if @booking.passenger2_name.present? %>
     <%== "<td>#{@booking.passenger3_telephone_number}</td>" if @booking.passenger3_name.present? %>
   </tr>
   <tr>
-    <th>メールアドレス</th>
+    <th><%= t("bookings.passenger.email") %></th>
     <td><%= @booking.passenger1_email %></td>
     <%== "<td>#{@booking.passenger2_email}</td>" if @booking.passenger2_name.present? %>
     <%== "<td>#{@booking.passenger3_email}</td>" if @booking.passenger3_name.present? %>
   </tr>
   <tr>
-    <th>予約した席</th>
+    <th><%= t("bookings.passenger.seat") %></th>
     <% @booking.seats.each do |seat| %>
       <td><%= seat.number %></td>
     <% end %>
   </tr>
   <tr>
-    <th>クラス</th>
+    <th><%= t("bookings.passenger.class") %></th>
     <% @booking.seats.each do |seat| %>
       <td><%= seat_class_map[seat.seat_class] %> </td>
     <% end %>
@@ -64,8 +66,8 @@
 
 <table class="attr">
   <tr>
-    <th>チェックイン</th>
-    <td><%= (@booking.booking_seat_flights.first.checkin ? "完了" : "未完了") %></td>
-    <td><%= link_to "チェックイン", [:edit, :account, @booking] %></td>
+    <th><%= t("bookings.passenger.checkin") %></th>
+    <td><%= (@booking.booking_seat_flights.first.checkin ? t("bookings.passenger.completed") : t("bookings.passenger.not_completed")) %></td>
+    <td><%= link_to t("bookings.passenger.checkin_link"), [:edit, :account, @booking] %></td>
   </tr>
 </table>

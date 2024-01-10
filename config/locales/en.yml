@@ -1,4 +1,6 @@
 en:
+  english: "English"
+  japanese: "Japanese"
   top_page:
     page_title: "Top Page"
     cancellation_information: "Cancellation Information"
@@ -44,7 +46,7 @@ en:
     form:
       labels:
         name: "Name"
-        alph_name: "Alphabetical Name"
+        alph_name: "Alphabet Name"
         login_name: "Login Name"
         gender: "Gender"
         birthday: "Birthday"
@@ -90,7 +92,7 @@ en:
       airline_flight: "Airline / Flight"
       origin_destination: "Origin・Destination"
       date: "Date"
-      times: "Departure & Arrival Time"
+      times: "Departure・Arrival Time"
       class: "Class"
       number_of_passengers: "Number of Passengers"
       total_price: "Total Price"
@@ -118,7 +120,66 @@ en:
     booking_success: "Booking completed successfully."
     checkin_success: "Check-in completed successfully."
 
+    index_page_title: "Booking Confirmation"
+    booking_information: "Booking information"
+    booking_history: "Booking history"
+    table:
+      airline_flight: "Airline / Flight"
+      origin_destination: "Origin・Destination"
+      date: "Date"
+      times: "Departure・Arrival Time"
+      class: "Class"
+      number_of_passengers: "Number of Passengers"
+      total_price: "Total Price"
+      payment_method: "Payment Method"
+      details: "Details"
+
+    show_page_title: "Booking details"
+    return_to_list: "Return to Booking List"
+    return_to_details: "Return to Booking Details"
+    passenger:
+      name: "Name"
+      birthday: "Birthday"
+      telephone_number: "Telephone Number"
+      email: "Email Address"
+      seat: "Booked Seats"
+      class: "Class"
+      checkin: "Check-In"
+      checkin_link: "Proceed to Check-In"
+      completed: "Completed"
+      not_completed: "Not Completed"
+
+  errors_message: "Please correct the errors below."
   activerecord:
     attributes:
       booking:
         seat_already_booked: "Seat %{seat_number} is already booked for flight %{flight_name}."
+
+  account:
+    created: "Your account has been successfully registered."
+    updated: "Your account information has been updated."
+    deleted: "Your account has been deleted."
+
+    my_page_title: "My Page"
+    edit: "edit"
+    name: "Name"
+    alph_name: "Alphabet Name"
+    login_name: "Login Name"
+    gender: "Gender"
+    options:
+      male: "Male"
+      female: "Female"
+    birthday: "Birthday"
+
+    change_password: "Change Password"
+    delete_account: "Delete Account"
+    delete_confirm: "Do you really want to delete this?"
+
+  passwords:
+    changed: "Your password has been changed."
+    change_password: "Change Password"
+    return_to_account: "Return to My Account"
+    current_password: "Current Password"
+    new_password: "New Password"
+    confirm_new_password: "Confirm New Password"
+    change: "Change"

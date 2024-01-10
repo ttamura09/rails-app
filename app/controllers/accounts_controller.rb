@@ -3,6 +3,9 @@ class AccountsController < ApplicationController
 
   def show
     @customer = current_customer
+    @bookings = @customer.bookings
+    @bookings_history = @bookings.select { |booking| booking.flight.departure_date < Date.today }
+    @bookings_information = @bookings.select { |booking| booking.flight.departure_date >= Date.today }
   end
 
   def new
@@ -17,7 +20,7 @@ class AccountsController < ApplicationController
     @customer = Customer.new(account_params)
     if @customer.save
       cookies.signed[:customer_id] = { value: @customer.id, expires: 1.day.from_now }
-      redirect_to :root, notice: "アカウントを新規登録しました。"
+      redirect_to :root, notice: t("account.created")
     else
       render "new"
     end
@@ -27,7 +30,7 @@ class AccountsController < ApplicationController
     @customer = current_customer
     @customer.assign_attributes(account_params)
     if @customer.save
-      redirect_to :account, notice: "アカウント情報を更新しました。"
+      redirect_to :account, notice: t("account.updated")
     else
       render "edit"
     end
@@ -36,7 +39,7 @@ class AccountsController < ApplicationController
   def destroy
     @customer = current_customer
     @customer.destroy
-    redirect_to :root, notice: "アカウントを削除しました。"
+    redirect_to :root, notice: t("account.deleted")
   end
 
   private def account_params

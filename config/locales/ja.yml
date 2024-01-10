@@ -1,4 +1,6 @@
 ja:
+  english: "英語"
+  japanese: "日本語"
   top_page:
     page_title: "トップページ"
     cancellation_information: "欠航情報"
@@ -124,9 +126,40 @@ ja:
     booking_success: "予約が完了しました。"
     checkin_success: "チェックインを完了しました。"
 
+    index_page_title: "予約確認"
+    booking_information: "予約情報"
+    booking_history: "予約履歴"
+    table:
+      airline_flight: "航空会社/便名"
+      origin_destination: "出発地・到着地"
+      date: "日付"
+      times: "出発時刻・到着時刻"
+      class: "クラス"
+      number_of_passengers: "予約人数"
+      total_price: "合計料金"
+      payment_method: "決済方法"
+      details: "予約詳細へ進む"
+
+    show_page_title: "予約詳細"
+    return_to_list: "予約一覧へ戻る"
+    return_to_details: "予約詳細へ戻る"
+    passenger:
+      name: "氏名"
+      birthday: "誕生日"
+      telephone_number: "電話番号"
+      email: "メールアドレス"
+      seat: "予約した席"
+      class: "クラス"
+      checkin: "チェックイン"
+      checkin_link: "チェックインへ進む"
+      completed: "完了"
+      not_completed: "未完了"
+
+  errors_message: "以下のエラーを修正してください。"
   activerecord:
     models:
       booking: "予約"
+      account: "アカウント"
     attributes:
       booking:
         passenger1_name: "搭乗者1の氏名"
@@ -143,3 +176,36 @@ ja:
         passenger3_telephone_number: "搭乗者3の電話番号"
         payment_method: "支払方法"
         seat_already_booked: "%{seat_number}は既に%{flight_name}便で予約されています。"
+      customer:
+        current_password: "現在のパスワード"
+        password: "新しいパスワード"
+        password_confirmation: "新しいパスワードの確認"
+
+  account:
+    created: "アカウントを新規登録しました。"
+    updated: "アカウント情報を更新しました。"
+    deleted: "アカウントを削除しました。"
+
+    my_page_title: "マイページ"
+    edit: "編集"
+    name: "名前"
+    alph_name: "アルファベット名"
+    login_name: "ログイン名"
+    gender: "性別"
+    options:
+      male: "男性"
+      female: "女性"
+    birthday: "誕生日"
+
+    change_password: "パスワード変更"
+    delete_account: "アカウントを削除"
+    delete_confirm: "本当に削除しますか?"
+
+  passwords:
+    changed: "パスワードを変更しました。"
+    change_password: "パスワードの変更"
+    return_to_account: "マイアカウントに戻る"
+    current_password: "現在のパスワード"
+    new_password: "新しいパスワード"
+    confirm_new_password: "新しいパスワードの確認"
+    change: "変更"

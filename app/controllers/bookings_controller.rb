@@ -3,8 +3,8 @@ class BookingsController < ApplicationController
 
   def index
     @bookings = current_customer.bookings
-    @past_bookings = @bookings.select { |booking| booking.flight.departure_date < Date.today }
-    @future_bookings = @bookings.select { |booking| booking.flight.departure_date >= Date.today }
+    @bookings_history = @bookings.select { |booking| booking.flight.departure_date < Date.today }
+    @bookings_information = @bookings.select { |booking| booking.flight.departure_date >= Date.today }
   end
 
   def show

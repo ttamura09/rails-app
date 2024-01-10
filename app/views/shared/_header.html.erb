@@ -22,10 +22,10 @@
 
 <nav class="menubar">
   <ul>
-    <%= menu_link_to "TOP", :root %>
-    <%= menu_link_to "マイページ", :account if current_customer %>
-    <%= menu_link_to "予約確認", [:account, :bookings] if current_customer %>
-    <%= menu_link_to "日本語", change_language(:ja) %>
-    <%= menu_link_to "English", change_language(:en) %>
+    <%= menu_link_to t("top_page.page_title"), :root %>
+    <%= menu_link_to t("account.my_page_title"), :account if current_customer %>
+    <%= menu_link_to t("bookings.index_page_title"), [:account, :bookings] if current_customer %>
+    <%= menu_link_to t("japanese"), change_language(:ja) %>
+    <%= menu_link_to t("english"), change_language(:en) %>
   </ul>
 </nav>

@@ -1,31 +1,31 @@
-<% @page_title = "マイページ" %>
+<% @page_title = t("account.my_page_title") %>
 <h1><%= @page_title %></h1>
-<p><%= link_to "編集", [:edit, :account] %></p>
-<p><%= link_to "パスワード変更", [:edit, :password] %></p>
+<p><%= link_to t("account.edit"), [:edit, :account] %></p>
+<p><%= link_to t("account.change_password"), [:edit, :password] %></p>
 
 <table>
   <tr>
-    <th>名前</th>
+    <th><%= t("account.name") %></th>
     <td><%= @customer.name %></td>
   </tr>
 
   <tr>
-    <th>アルファベット名</th>
+    <th><%= t("account.alph_name") %></th>
     <td><%= @customer.alph_name %></td>
   </tr>
 
   <tr>
-    <th>ログイン名</th>
+    <th><%= t("account.login_name") %></th>
     <td><%= @customer.login_name %></td>
   </tr>
 
   <tr>
-    <th>性別</th>
-    <td><%= (@customer.sex == 1 ? "男性" : "女性") %></td>
+    <th><%= t("account.gender") %></th>
+    <td><%= (@customer.sex == 1 ? t("account.options.male") : t("account.options.female")) %></td>
   </tr>
 
   <tr>
-    <th>誕生日</th>
+    <th><%= t("account.birthday") %></th>
     <td><%= @customer.birthday %></td>
   </tr>
 
@@ -35,5 +35,7 @@
   </tr>
 </table>
 
-<%= link_to "アカウントを削除", :account, method: :delete,
-            data: { confirm: "本当に削除しますか?" } %>
+<%= link_to t("account.delete_account"), :account, method: :delete,
+            data: { confirm: t("account.delete_confirm") } %>
+
+<%= render "shared/booking_confirmation" %>

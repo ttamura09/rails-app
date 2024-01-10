@@ -24,7 +24,7 @@
 
 <table>
   <%= form.label :payment_method, t("booking_form.payment_method") %>
-  <% %w[credit_card paypay convenience_store].each do |method| %>
+  <% %w[クレジットカード PayPay コンビニ払い].each do |method| %>
     <tr>
       <th><%= form.label :payment_method, t("booking_form.payment_methods.#{method}") %></th>
       <td><%= form.radio_button :payment_method, method %></td>
