@@ -1,50 +1,50 @@
 <%= render "shared/errors", obj: @flight %>
 <table class="attr">
   <tr>
-    <th><%= form.label :name, "会社/便名" %></th>
+    <th><%= form.label :name, t("flights.table.airline_flight") %></th>
     <td><%= form.text_field :name, value: current_airline.name %></td>
   </tr>
 
   <tr>
-    <th><%= form.label :airmodel_id, "機体" %></th>
+    <th><%= form.label :airmodel_id, t("flights.table.airmodel_name") %></th>
     <td><%= form.select :airmodel_id, options_for_select(Airmodel.all.map { |airmodel| [airmodel.name, airmodel.id] }, params[:airmodel_id]) %></td>
   </tr>
 
   <tr>
-    <th><%= form.label :departure_date, "出発日" %></th>
+    <th><%= form.label :departure_date, t("flights.table.departure_date") %></th>
     <td><%= form.date_field :departure_date, value: (params[:departure_date] || Time.now.to_date), min: Time.now.to_date %></td>
   </tr>
   <tr>
-    <th><%= form.label :departure_time, "出発時刻" %></th>
+    <th><%= form.label :departure_time, t("flights.table.departure_time") %></th>
     <td><%= form.time_field :departure_time, value: params[:departure_time] %></td>
   </tr>
 
   <tr>
-    <th><%= form.label :arrival_date, "到着日" %></th>
+    <th><%= form.label :arrival_date, t("flights.table.arrival_date") %></th>
     <td><%= form.date_field :arrival_date, value: (params[:arrival_date] || Time.now.to_date), min: Time.now.to_date %></td>
   </tr>
   <tr>
-    <th><%= form.label :arrival_time, "到着時刻" %></th>
+    <th><%= form.label :arrival_time, t("flights.table.arrival_time") %></th>
     <td><%= form.time_field :arrival_time, value: params[:departure_time] %></td>
   </tr>
 
   <tr>
-    <th><%= form.label :origin_id, "出発地" %></th>
+    <th><%= form.label :origin_id, t("flights.table.origin") %></th>
     <td><%= form.select :origin_id, options_for_select(Airport.all.map { |airport| [airport.name, airport.id] }, params[:origin_id]) %></td>
   </tr>
 
   <tr>
-    <th><%= form.label :destination_id, "目的地" %></th>
+    <th><%= form.label :destination_id, t("flights.table.destination") %></th>
     <td><%= form.select :destination_id, options_for_select(Airport.all.map { |airport| [airport.name, airport.id] }, params[:destination_id]) %></td>
   </tr>
 
   <tr>
-    <th><%= form.label :operation, "運行状況" %></th>
-    <td>運行<%= form.check_box :operation %></td>
+    <th><%= form.label :operation, t("flights.table.operation_status") %></th>
+    <td><%= t("flights.table.operation") %><%= form.check_box :operation %></td>
   </tr>
 
   <tr>
-    <th><%= form.label :price, "価格" %></th>
+    <th><%= form.label :price, t("flights.table.price") %></th>
     <td>
       <%= form.select :price, options_for_select(
         (1..50).map { |n| ["¥#{n * 1000}", n * 1000] },

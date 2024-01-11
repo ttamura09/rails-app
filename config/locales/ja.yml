@@ -3,6 +3,9 @@ ja:
   japanese: "日本語"
   errors_message: "以下のエラーを修正してください。"
   login_error_message: "ログイン名とパスワードが一致しません。"
+  logout: "ログアウト"
+  logout_confirmation: "ログアウトしますか?"
+  honorific_title: "さん"
 
   top_page:
     page_title: "トップページ"
@@ -29,6 +32,10 @@ ja:
     return_to_top: "管理者トップへ戻る"
     return_to_customer_search: "顧客検索ページへ戻る"
 
+  air:
+    top_page_title: "航空会社トップページ"
+    flight_operation: "便の操作"
+    return_to_top: "航空会社トップへ戻る"
 
   flights_search_form:
     labels:
@@ -83,8 +90,15 @@ ja:
     page_title: "便の一覧"
     table:
       name: "便名"
+      airline_flight: "航空会社/便"
       origin_destination: "出発地・到着地"
+      origin: "出発地"
+      destination: "到着地"
       date: "日付"
+      departure_date: "出発日"
+      departure_time: "出発時刻"
+      arrival_date: "到着日"
+      arrival_time: "到着時刻"
       times: "出発時刻・到着時刻"
       price: "料金"
       seats: "空席"
@@ -96,8 +110,28 @@ ja:
         business: "ビジネス"
         first: "ファースト"
       book_now: "予約へ進む"
+
+      airmodel_name: "機体名"
+      economy_business_first_price: "エコノミー・ビジネス・ファーストの料金"
+      economy_business_first_seats: "エコノミー・ビジネス・ファーストの席数"
+      flight_details: "便の詳細"
+      operation_status: "運行状況"
+      operation: "運行"
+      submit: "登録する"
+      add_flight: "便の追加"
+      flight_added: "フライトを追加しました。"
+      return_to_operations: "便の操作へ戻る"
+      different_airports: "出発地と到着地は異なる空港を指定してください。"
+      seats_status: "座席状況"
+
     no_flights: "ご指定の搭乗日、区間では予約可能な便がございません。"
-    flash_notice: "出発地と到着地を選択してください。"
+    no_bookings: "予約された便がありません。"
+    registration_confirm: "この内容で登録しますか?"
+    submit_confirm: "このフライトを欠航しますか？"
+    operation_status:
+      operating: "運行"
+      cancelled: "欠航"
+
     flash:
       select_origin_and_destination: "出発地と到着地を選択してください。"
       select_origin: "出発地を選択してください。"
@@ -201,7 +235,9 @@ ja:
         current_password: "現在のパスワード"
         password: "新しいパスワード"
         password_confirmation: "新しいパスワードの確認"
-
+      flight:
+        departure_time: "出発時刻"
+        arrival_time: "到着時刻"
   account:
     created: "アカウントを新規登録しました。"
     updated: "アカウント情報を更新しました。"

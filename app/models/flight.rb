@@ -19,6 +19,8 @@ class Flight < ApplicationRecord
   validates :arrival_time, presence: true
   validates :price, presence: true
 
+  scope :operation, -> { where(operation: 1) }
+
   def sum_price(seat_class)
     seat = airmodel.seats.find_by(seat_class: seat_class)
     seat_price = seat&.price || 0
@@ -61,7 +63,7 @@ class Flight < ApplicationRecord
   class << self
     # フライト検索用メソッド
     def search(params)
-      results = order("id").where(operation: 1)
+      results = order("id")
 
       # 出発地・到着地の絞り込み
       if params[:origin].present? && params[:destination].present?

@@ -18,14 +18,22 @@
   <% @flights.each do |flight| %>
     <tr>
       <% seat_nums = flight.calc_seat_nums(params[:seat_class]) %>
-      <% next if seat_nums == 0 %>
+      <% next if params[:seat_class].present? && seat_nums == 0 %>
       <% bookable_flights_count += 1 %>
 
       <td><%= flight.name %></td>
       <td><%= "#{flight.origin.name} → #{flight.destination.name}" %></td>
       <td><%= flight.departure_date.strftime("%Y/%m/%d") %></td>
       <td><%= "#{flight.departure_time.strftime("%H:%M")} → #{flight.arrival_time.strftime("%H:%M")}" %></td>
-      <td><%= (seat_nums >= 10 ? t("flights.table.seats_available") : "#{seat_nums} #{t("flights.table.seats_left")}") %></td>
+      <% if params[:seat_class].present? %>
+        <td><%= (seat_nums >= 10 ? t("flights.table.seats_available") : "#{seat_nums} #{t("flights.table.seats_left")}") %></td>
+      <% else %>
+        <td>
+          <%= "#{flight.calc_seat_nums("economy")}#{t("flights.table.seats_left")}" %><br>
+          <%= "#{flight.calc_seat_nums("business")}#{t("flights.table.seats_left")}" %><br>
+          <%= "#{flight.calc_seat_nums("first")}#{t("flights.table.seats_left")}" %><br>
+        </td>
+      <% end %>
       <% if params[:seat_class].present? %>
         <td><%= "¥#{flight.sum_price(params[:seat_class])}" %></td>
       <% else %>

@@ -1,19 +1,44 @@
-<% @page_title = "便の操作" %>
+<% @page_title = t("air.flight_operation") %>
 <h1><%= @page_title %></h1>
 
-<%= link_to "航空会社トップへ戻る", [:air, :root] %>
+<%= link_to t("air.return_to_top"), [:air, :root] %>
+
+<!--検索フォーム-->
+<%= form_tag [:new, :air, :flight], method: :get do %>
+  <table class="attr">
+    <tr>
+      <th><%= label_tag :origin, t("flights_search_form.labels.origin") %></th>
+      <td><%= select_tag :origin, options_for_select(Airport.all.map { |airport| [airport.name, airport.id] }, params[:origin]), include_blank: t("flights_search_form.select_prompt") %></td>
+    </tr>
+
+    <tr>
+      <th><%= label_tag :destination, t("flights_search_form.labels.destination") %></th>
+      <td><%= select_tag :destination, options_for_select(Airport.all.map { |airport| [airport.name, airport.id] }, params[:destination]), include_blank: t("flights_search_form.select_prompt") %></td>
+    </tr>
+
+    <tr>
+      <th><%= label_tag :departure_date, t("flights_search_form.labels.departure_date") %></th>
+      <td><%= date_field_tag :departure_date, (params[:departure_date] ? params[:departure_date] : Time.now.to_date) %></td>
+    </tr>
+  </table>
+  <%= submit_tag t("flights_search_form.submit") %>
+<% end %>
+
+
 <% bookable_flights_count = 0 %>
 <table class="list">
   <tr>
-    <th>id</th>
-    <th>便名</th>
-    <th>出発地・到着地</th>
-    <th>日付</th>
-    <th>出発時刻・到着時刻</th>
-    <th>機体名</th>
-    <th>エコノミー・ビジネス・ファースト料金</th>
-    <th>エコノミー・ビジネス・ファーストの席数</th>
-    <th>便の詳細</th>
+    <th>ID</th>
+    <th><%= t("flights.table.name") %></th>
+    <th><%= t("flights.table.origin_destination") %></th>
+    <th><%= t("flights.table.date") %></th>
+    <th><%= t("flights.table.times") %></th>
+    <th><%= t("flights.table.airmodel_name") %></th>
+    <th><%= t("flights.table.economy_business_first_price") %></th>
+    <th><%= t("flights.table.economy_business_first_seats") %></th>
+    <th><%= t("flights.table.operation_status") %></th>
+    <th><%= t("top_page.operation_status.cancelled") %></th>
+    <th><%= t("flights.table.flight_details") %></th>
   </tr>
   <% @flights.each do |flight| %>
     <tr>
@@ -24,20 +49,27 @@
       <td><%= flight.departure_date.strftime("%Y/%m/%d") %></td>
       <td><%= "#{flight.departure_time.strftime("%H:%M")} → #{flight.arrival_time.strftime("%H:%M")}" %></td>
       <td><%= flight.airmodel.name %></td>
-      <td><%= "¥#{flight.price} ¥#{flight.price+2000} ¥#{flight.price+10000}" %></td>
+      <td><%= "¥#{flight.price} ¥#{flight.price + 2000} ¥#{flight.price + 10000}" %></td>
       <% economy_nums, business_nums, first_nums = [flight.airmodel.economy_nums, flight.airmodel.business_nums, flight.airmodel.first_nums] %>
       <td><%= "#{economy_nums} #{business_nums} #{first_nums}" %></td>
-      <td><%= link_to "詳細へ進む", [:air, flight] %></td>
+      <td><%= flight.operation ? t("top_page.operation_status.operating") : t("top_page.operation_status.cancelled") %></td>
+      <td>
+        <%= form_for [:air, flight] do |form| %>
+          <%= render "shared/errors", obj: flight %>
+          <%= form.submit t("flights.operation_status.cancelled"), data: { confirm: t("flights.submit_confirm") } %>
+        <% end %>
+      </td>
+      <td><%= link_to t("flights.table.flight_details"), [:air, flight] %></td>
     </tr>
   <% end %>
 </table>
 
 <% if bookable_flights_count == 0 %>
-  <p>予約された便がありません。</p>
+  <p><%= t("flights.no_bookings") %></p>
 <% end %>
 
-<p>便の追加</p>
+<p><%= t("flights.table.add_flight") %></p>
 <%= form_for [:air, @flight] do |form| %>
   <%= render "shared/flight_form", form: form %>
-  <div><%= form.submit %></div>
+  <%= form.submit t("flights.table.submit"), data: { confirm: t("flights.registration_confirm") } %>
 <% end %>

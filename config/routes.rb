@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     namespace :air do
       root "top#index"
       resource :session, only: [:new, :create, :destroy]
-      resources :flights, only: [:show, :new, :create]
+      resources :flights, only: [:show, :update, :new, :create]
     end
   end
 end

@@ -1,17 +1,17 @@
-<% @page_title = "便の詳細" %>
+<% @page_title = t("flights.table.flight_details") %>
 <h1><%= @page_title %></h1>
-<%= link_to "便の操作へ戻る", [:new, :air, :flight] %>
+<%= link_to t("flights.table.return_to_operations"), [:new, :air, :flight] %>
 
 <table class="list">
   <tr>
-    <th>id</th>
-    <th>便名</th>
-    <th>出発地・到着地</th>
-    <th>日付</th>
-    <th>出発時刻・到着時刻</th>
-    <th>機体名</th>
-    <th>エコノミー・ビジネス・ファースト料金</th>
-    <th>エコノミー・ビジネス・ファーストの席数</th>
+    <th>ID</th>
+    <th><%= t("flights.table.name") %></th>
+    <th><%= t("flights.table.origin_destination") %></th>
+    <th><%= t("flights.table.date") %></th>
+    <th><%= t("flights.table.times") %></th>
+    <th><%= t("flights.table.airmodel_name") %></th>
+    <th><%= t("flights.table.economy_business_first_price") %></th>
+    <th><%= t("flights.table.economy_business_first_seats") %></th>
   </tr>
   <tr>
     <td><%= @flight.id %></td>
@@ -31,11 +31,10 @@
 <table class="attr">
   <tr>
     <th>
-      座席
-      <p>予約可能:⚪︎</p>
-      <p>チェックイン完了:☑️</p>
-      <p>予約済み︎×</p>
-      <!--      booking/new, booking_formを参考に-->
+      <%= t("flights.table.seats_status") %>
+      <p><%= t("booking_form.seat_status.available") %>:⚪︎</p>
+      <p><%= t("booking_form.seat_status.checked_in") %>:☑️</p>
+      <p><%= t("booking_form.seat_status.booked") %>:×</p>
     </th>
     <td>
       <% @flight.airmodel.seats.each_with_index do |seat, i| %>

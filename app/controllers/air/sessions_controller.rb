@@ -16,6 +16,6 @@ class Air::SessionsController < Air::Base
 
   def destroy
     cookies.delete(:airline_id)
-    redirect_to :root
+    redirect_to [:new, :air, :session]
   end
 end

@@ -3,6 +3,9 @@ en:
   japanese: "Japanese"
   errors_message: "Please correct the errors below."
   login_error_message: "Login name and password do not match"
+  logout: "Logout"
+  logout_confirmation: "Are you sure you want to logout?"
+  honorific_title: ""
 
   top_page:
     page_title: "Top Page"
@@ -28,6 +31,11 @@ en:
     customer_search: "Customer search"
     return_to_top: "Return to administrator top"
     return_to_customer_search: "Return to customer search page"
+
+  air:
+    top_page_title: "Airline Top Page"
+    flight_operation: "Flight Operation"
+    return_to_top: "Return to airline top"
 
   flights_search_form:
     labels:
@@ -77,8 +85,15 @@ en:
     page_title: "Flight List"
     table:
       name: "Flight Name"
+      airline_flight: "Airline / Flight"
       origin_destination: "Origin・Destination"
+      origin: "Origin"
+      destination: "Destination"
       date: "Date"
+      departure_date: "Departure Date"
+      departure_time: "Departure Time"
+      arrival_date: "Arrival Date"
+      arrival_time: "Arrival Time"
       times: "Departure・Arrival Time"
       price: "Price"
       seats: "Seats Available"
@@ -90,7 +105,28 @@ en:
         business: "Business"
         first: "First"
       book_now: "Proceed to Booking"
+
+      airmodel_name: "Airmodel name"
+      economy_business_first_price: "Economy・Business・First price"
+      economy_business_first_seats: "Economy・Business・First seats"
+      flight_details: "Flight details"
+      operation_status: "Operation status"
+      operation: "Operation"
+      submit: "Create Flight"
+      add_flight: "Add flight"
+      flight_added: "Flight added."
+      return_to_operations: "Return to flight operations"
+      different_airports: "Please specify different airports for departure and arrival."
+      seats_status: "Seating situation"
+
     no_flights: "No flights available for your selected criteria."
+    no_bookings: "There are no flights booked."
+    registration_confirm: "Would you like to register with this content?"
+    submit_confirm: "Are you sure you want to cancel this flight?"
+    operation_status:
+      operating: "Operating"
+      cancelled: "Cancelled"
+
     flash:
       select_origin_and_destination: "Please select both origin and destination."
       select_origin: "Please select the origin."

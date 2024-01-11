@@ -1,6 +1,6 @@
 class FlightsController < ApplicationController
   def index
-    @flights = Flight.search(params)
+    @flights = Flight.search(params).operation
     if !params[:origin].present? && !params[:destination].present?
       flash[:notice] = t("flights.flash.select_origin_and_destination")
     elsif !params[:origin].present?
