@@ -2,12 +2,12 @@
 <h1><%= @page_title %></h1>
 
 <div class="tabs">
-  <input type="radio" name="tab-control" id="future-tab" checked>
-  <input type="radio" name="tab-control" id="past-tab">
-  <label for="future-tab" class="tab-title"><%= t("bookings.booking_information") %></label>
-  <label for="past-tab" class="tab-title"><%= t("bookings.booking_history") %></label>
+  <input type="radio" name="tab-control" id="tab1" checked>
+  <input type="radio" name="tab-control" id="tab2">
+  <label for="tab1" class="tab-title"><%= t("bookings.booking_information") %></label>
+  <label for="tab2" class="tab-title"><%= t("bookings.booking_history") %></label>
   <div class="tab-content">
-    <section id="future-content">
+    <section id="content1">
       <h2><%= t("bookings.booking_information") %></h2>
       <table class="list">
         <tr>
@@ -36,7 +36,7 @@
         <% end %>
       </table>
     </section>
-    <section id="past-content">
+    <section id="content2">
       <h2><%= t("bookings.booking_history") %></h2>
       <table class="list">
         <tr>

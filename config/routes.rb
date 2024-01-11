@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       root "top#index"
       resource :session, only: [:new, :create, :destroy]
       resources :flights, only: [:show, :update, :new, :create]
+      resources :customers, only: [:show]
     end
   end
 end

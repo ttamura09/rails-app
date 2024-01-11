@@ -1,0 +1,50 @@
+<% @page_title = t("air.customer_details") %>
+<h1><%= @page_title %></h1>
+<%= link_to t("flights.table.return_to_operations"), [:new, :air, :flight] %>
+<h2></h2>
+<table class="list">
+  <tr>
+    <th><%= t("account.name") %></th>
+    <th><%= t("account.alph_name") %></th>
+    <th><%= t("account.login_name") %></th>
+    <th><%= t("account.gender") %></th>
+    <th><%= t("account.birthday") %></th>
+    <th><%= t("account.email") %></th>
+  </tr>
+  <tr>
+    <td><%= @customer.name %></td>
+    <td><%= @customer.alph_name %></td>
+    <td><%= @customer.login_name %></td>
+    <td><%= (@customer.sex == 1 ? t("account.options.male") : t("account.options.female")) %></td>
+    <td><%= @customer.birthday %></td>
+    <td><%= @customer.email %></td>
+  </tr>
+</table>
+
+<table class="list">
+  <tr>
+    <th><%= t("bookings.table.airline_flight") %></th>
+    <th><%= t("bookings.table.origin_destination") %></th>
+    <th><%= t("bookings.table.date") %></th>
+    <th><%= t("bookings.table.times") %></th>
+    <th><%= t("bookings.table.class") %></th>
+    <th><%= t("bookings.table.number_of_passengers") %></th>
+    <th><%= t("bookings.table.total_price") %></th>
+    <th><%= t("bookings.table.payment_method") %></th>
+    <th><%= t("bookings.passenger.checkin_status") %></th>
+  </tr>
+  <% @bookings.each do |booking| %>
+    <tr>
+      <td><%= booking.flight.name %></td>
+      <td><%= "#{booking.flight.origin.name} → #{booking.flight.destination.name}" %></td>
+      <td><%= booking.flight.departure_date.strftime("%Y/%m/%d") %></td>
+      <td><%= "#{booking.flight.departure_time.strftime("%H:%M")} → #{booking.flight.arrival_time.strftime("%H:%M")}" %></td>
+      <td><%= seat_class_map[booking.seats.first.seat_class] %>
+      <td><%= "#{booking.seats.size}" %>
+      <td><%= "¥#{booking.total_price}" %></td>
+      <td><%= booking.payment_method %></td>
+      <td><%= (booking.booking_seat_flights.first.checkin ? t("bookings.passenger.completed") : t("bookings.passenger.not_completed")) %></td>
+    </tr>
+  <% end %>
+</table>
+

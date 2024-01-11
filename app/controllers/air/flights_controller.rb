@@ -6,6 +6,7 @@ class Air::FlightsController < Air::Base
   end
 
   def new
+    @bookings = Booking.order("id")
     @flights = Flight.search(params).page(params[:page]).per(30)
     if params[:origin].present? && params[:destination].present? && params[:origin] == params[:destination]
       flash[:notice] = t("flights.flash.different_airports")

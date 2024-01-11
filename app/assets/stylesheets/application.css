@@ -86,7 +86,7 @@ aside#sidebar {
 
 /* ヘッダー */
 header {
-    border-top: 4px solid #6bb;
+    border-top: 4px solid #6abb;
     padding-top: 4px;
 }
 
@@ -223,4 +223,46 @@ aside#sidebar ul {
 
 aside#sidebar li {
     margin-bottom: 0.3em;
+}
+
+
+.tabs {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.tab-title {
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #f6f6f6;
+    border-bottom: 1px solid #ddd;
+}
+
+.tab-title:hover {
+    background-color: #ddd;
+}
+
+.tabs input[type="radio"] {
+    display: none;
+}
+
+.tab-content section {
+    display: none;
+    padding: 20px;
+    background-color: white;
+    border-radius: 0 0 8px 8px;
+}
+
+#tab1:checked ~ .tab-content #content1,
+#tab2:checked ~ .tab-content #content2,
+#tab3:checked ~ .tab-content #content3 {
+    display: block;
+}
+
+#tab1:checked + label[for="tab1"],
+#tab2:checked + label[for="tab2"],
+#tab3:checked + label[for="tab3"] {
+    background-color: white;
+    font-weight: bold;
+    border-bottom: 1px solid white;
 }

@@ -36,6 +36,7 @@ en:
     top_page_title: "Airline Top Page"
     flight_operation: "Flight Operation"
     return_to_top: "Return to airline top"
+    customer_details: "Customer Details"
 
   flights_search_form:
     labels:
@@ -83,6 +84,7 @@ en:
 
   flights:
     page_title: "Flight List"
+    flight_registration: "Flight registration"
     table:
       name: "Flight Name"
       airline_flight: "Airline / Flight"
@@ -172,6 +174,8 @@ en:
     index_page_title: "Booking Confirmation"
     booking_information: "Booking information"
     booking_history: "Booking history"
+    bookings_list: "Bookings List"
+
     table:
       airline_flight: "Airline / Flight"
       origin_destination: "Origin・Destination"

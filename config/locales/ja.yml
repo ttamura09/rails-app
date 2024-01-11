@@ -36,6 +36,7 @@ ja:
     top_page_title: "航空会社トップページ"
     flight_operation: "便の操作"
     return_to_top: "航空会社トップへ戻る"
+    customer_details: "顧客詳細"
 
   flights_search_form:
     labels:
@@ -88,6 +89,7 @@ ja:
 
   flights:
     page_title: "便の一覧"
+    flight_registration: "便の登録"
     table:
       name: "便名"
       airline_flight: "航空会社/便"
@@ -177,6 +179,8 @@ ja:
     index_page_title: "予約確認"
     booking_information: "予約情報"
     booking_history: "予約履歴"
+    bookings_list: "予約一覧"
+
     table:
       airline_flight: "航空会社/便名"
       origin_destination: "出発地・到着地"
