@@ -18,9 +18,8 @@
 body {
     background-color: white;
     color: black;
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
-    font-family: Meiryo, sans-serif;
 }
 
 /* リンク */
@@ -68,25 +67,13 @@ div#container {
     width: 780px;
 }
 
-/* 左の枠（コンテンツを入れる） */
 main {
-    float: left;
-    /*width: 530px;*/
-    padding: 10px 10px 10px 0;
-}
-
-/* 右の枠（サイドバーを入れる） */
-aside#sidebar {
-    float: left;
-    width: 230px;
-    background-color: #e8ffff;
-    padding: 5px;
-    font-size: 86%;
+    padding: 25px 10px 10px 0;
 }
 
 /* ヘッダー */
 header {
-    border-top: 4px solid #6abb;
+    border-top: 4px solid rgba(124, 212, 234, 0.73);
     padding-top: 4px;
 }
 
@@ -100,7 +87,7 @@ footer {
     font: 11px Verdana;
     color: #888;
     padding: 8px 0;
-    border-top: 4px solid #6bb;
+    border-top: 4px solid rgba(124, 212, 234, 0.73);
     text-align: center;
 }
 
@@ -110,46 +97,9 @@ footer nav ul li:not(:last-child):after {
     margin: 0 5px;
 }
 
-/* メニューバー */
-nav.menubar {
-    padding: 2px;
-    background-color: #000;
-    color: #ccc;
-    font-size: 80%;
-    padding: 8px 16px;
-}
-
-nav.menubar ul li:not(:last-child):after {
-    color: #ccc;
-    content: " | ";
-    margin: 0 2px;
-}
-
-/* メニューバーのリンク */
-nav.menubar a {
-    text-decoration: none;
-}
-
-/* メニューバーのリンク（未訪問） */
-nav.menubar a:link {
-    color: #ccc;
-}
-
-/* メニューバーのリンク（訪問済） */
-nav.menubar a:visited {
-    color: #ccc;
-}
-
-/* メニューバーのリンク（マウスを合わせたとき） */
-nav.menubar a:hover {
-    color: #f88;
-    text-decoration: underline;
-}
-
-/* メニューバーのリンク（現在のページ） */
-nav.menubar span {
-    color: #ff8;
-    font-weight: bold;
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 /* メインコンテンツ */
@@ -187,45 +137,8 @@ ul.toolbar li:not(:last-child):after {
     margin: 0 2px;
 }
 
-/* サイドバー */
-form#login-form {
-    font-size: 12px;
-}
 
-form#login-form div {
-    padding: 2px;
-    text-align: center;
-}
-
-form#login-form label {
-    display: inline-block;
-    width: 80px;
-    text-align: center;
-}
-
-form#login-form input[type="text"],
-form#login-form input[type="password"] {
-    width: 120px;
-}
-
-aside#sidebar h2 {
-    color: #080;
-    font-weight: bold;
-    border-bottom: 1px dotted #080;
-    margin-bottom: 0.5em;
-    font-size: 100%;
-}
-
-aside#sidebar ul {
-    padding-left: 1em;
-    list-style-type: none;
-}
-
-aside#sidebar li {
-    margin-bottom: 0.3em;
-}
-
-
+/*タブ*/
 .tabs {
     border: 1px solid #ddd;
     border-radius: 8px;

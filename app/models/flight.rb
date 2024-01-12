@@ -77,22 +77,30 @@ class Flight < ApplicationRecord
 
       # 下限料金の絞り込み
       if params[:min_price].present?
-        min_adj = case params[:seat_class]
-                  when "economy" then 0
-                  when "business" then 2000
-                  else 10000
-                  end
+        if params[:seat_class].present?
+          min_adj = case params[:seat_class]
+                    when "economy" then 0
+                    when "business" then 2000
+                    else 10000
+                    end
+        else
+          min_adj = 0
+        end
         min_price = params[:min_price].to_i - min_adj
-        results = results.where("price > = ?", min_price)
+        results = results.where("price >= ?", min_price)
       end
 
       # 上限料金の絞り込み
       if params[:max_price].present?
-        max_adj = case params[:seat_class]
-                  when "economy" then 0
-                  when "business" then 2000
-                  else 10000
-                  end
+        if params[:seas_class].present?
+          max_adj = case params[:seat_class]
+                    when "economy" then 0
+                    when "business" then 2000
+                    else 10000
+                    end
+        else
+          max_adj = 10000
+        end
         max_price = params[:max_price].to_i - max_adj
         results = results.where("price <= ?", max_price)
       end

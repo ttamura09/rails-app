@@ -1,6 +1,5 @@
-<% @page_title = "アカウント情報の編集" %>
+<% @page_title = t("account.edit") %>
 <h1><%= @page_title %></h1>
-<%= link_to "マイアカウントに戻る", :account %>
 
 <%= form_for @customer, as: "account", url: :account do |form| %>
   <%= render "shared/customer_form", form: form %>

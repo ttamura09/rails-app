@@ -1,4 +1,45 @@
+
+/* メニューバー */
+nav.menubar {
+    font-size: 100%;
+    padding: 10px 16px;
+    letter-spacing: 1px;
+}
+
+nav.menubar ul li:not(:last-child):after {
+    color: #333333;
+    content: " | ";
+    margin: 0 2px;
+}
+
+/* メニューバーのリンク */
+nav.menubar a {
+    text-decoration: none;
+}
+
+/* メニューバーのリンク（未訪問） */
+nav.menubar a:link {
+    color: #868686;
+}
+
+/* メニューバーのリンク（訪問済） */
+nav.menubar a:visited {
+    color: #868686;
+}
+
+/* メニューバーのリンク（マウスを合わせたとき） */
+nav.menubar a:hover {
+    color: #f88;
+}
+
+/* メニューバーのリンク（現在のページ） */
+nav.menubar span {
+    font-weight: bold;
+    color: #000000;
+}
+
 header ul.account-menu {
+    text-decoration: none;
     width: 200px;
     float: right;
     font-size: 80%;
@@ -11,4 +52,12 @@ header ul.account-menu {
 header ul.account-menu li {
     display: inline;
     margin-right: 10px;
+}
+
+header ul.account-menu a {
+    text-decoration: none;
+}
+
+header ul.account-menu a:hover {
+    text-decoration: underline;
 }

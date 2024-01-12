@@ -12,17 +12,23 @@ class Booking < ApplicationRecord
   validates :passenger1_name, presence: true
   validates :passenger1_birthday, presence: true, comparison: { less_than: Time.current.to_date }
   validates :passenger1_email, presence: true, email: { allow_blank: true }
-  validates :passenger1_telephone_number, presence: true
+  validates :passenger1_telephone_number, presence: true,
+            format: { with: /\A[0-9-()]*\z/, allow_blank: true },
+            length: { minimum: 8, maximum: 20, allow_blank: true }
 
   validates :passenger2_name, presence: true, if: -> { number_of_passengers.to_i >= 2 }
   validates :passenger2_birthday, presence: true, comparison: { less_than: Time.current.to_date }, if: -> { number_of_passengers.to_i >= 2 }
   validates :passenger2_email, presence: true, email: { allow_blank: true }, if: -> { number_of_passengers.to_i >= 2 }
-  validates :passenger2_telephone_number, presence: true, if: -> { number_of_passengers.to_i >= 2 }
+  validates :passenger2_telephone_number, presence: true,
+            format: { with: /\A[0-9-()]*\z/, allow_blank: true },
+            length: { minimum: 8, maximum: 20, allow_blank: true }, if: -> { number_of_passengers.to_i >= 2 }
 
   validates :passenger3_name, presence: true, if: -> { number_of_passengers.to_i >= 3 }
   validates :passenger3_birthday, presence: true, comparison: { less_than: Time.current.to_date }, if: -> { number_of_passengers.to_i >= 3 }
   validates :passenger3_email, presence: true, email: { allow_blank: true }, if: -> { number_of_passengers.to_i >= 3 }
-  validates :passenger3_telephone_number, presence: true, if: -> { number_of_passengers.to_i >= 3 }
+  validates :passenger3_telephone_number, presence: true,
+            format: { with: /\A[0-9-()]*\z/, allow_blank: true },
+            length: { minimum: 8, maximum: 20, allow_blank: true }, if: -> { number_of_passengers.to_i >= 3 }
 
   validates :payment_method, presence: true
 

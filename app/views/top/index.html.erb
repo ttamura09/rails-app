@@ -4,27 +4,25 @@
 <!--フライト検索フォーム-->
 <%= render "shared/flights_search_form" %>
 
-<p><%= t("top_page.cancellation_information") %></p>
-<% @flights.each do |flight| %>
-  <table class="list">
+<h2><%= t("top_page.cancellation_information") %></h2>
+<table class="list">
+  <tr>
+    <th><%= t("top_page.table.flight_name") %></th>
+    <th><%= t("top_page.table.origin_destination") %></th>
+    <th><%= t("top_page.table.date") %></th>
+    <th><%= t("top_page.table.times") %></th>
+    <th><%= t("top_page.table.status") %></th>
+  </tr>
+  <% @flights.each do |flight| %>
     <tr>
-      <th><%= t("top_page.table.id") %></th>
-      <th><%= t("top_page.table.flight_name") %></th>
-      <th><%= t("top_page.table.origin_destination") %></th>
-      <th><%= t("top_page.table.date") %></th>
-      <th><%= t("top_page.table.times") %></th>
-      <th><%= t("top_page.table.status") %></th>
-    </tr>
-    <tr>
-      <td><%= flight.id %></td>
       <td><%= flight.name %></td>
       <td><%= "#{flight.origin.name} → #{flight.destination.name}" %></td>
       <td><%= flight.departure_date.strftime("%Y/%m/%d") %></td>
       <td><%= "#{flight.departure_time.strftime("%H:%M")} → #{flight.arrival_time.strftime("%H:%M")}" %></td>
       <td><%= flight.operation ? t("top_page.operation_status.operating") : t("top_page.operation_status.cancelled") %></td>
     </tr>
-  </table>
-<% end %>
+  <% end %>
+</table>
 
 <%= link_to t("top_page.links.login"), [:new, :session] unless current_customer %>
 <%= link_to t("top_page.links.signup"), [:new, :account] unless current_customer %>

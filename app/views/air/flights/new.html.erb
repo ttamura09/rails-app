@@ -37,6 +37,7 @@
             <td><%= link_to booking.customer.name, [:air, booking.customer] %></td>
           </tr>
         <% end %>
+        <%= paginate @bookings %>
       </table>
     </section>
     <section id="content2">
@@ -77,6 +78,7 @@
           <th><%= t("flights.table.flight_details") %></th>
         </tr>
         <% @flights.each do |flight| %>
+          <% next unless flight.operation %>
           <tr>
             <% bookable_flights_count += 1 %>
             <td><%= flight.id %></td>
@@ -105,7 +107,7 @@
       <% end %>
     </section>
     <section id="content3">
-      <p><%= t("flights.table.add_flight") %></p>
+      <h2><%= t("flights.table.add_flight") %></h2>
       <%= form_for [:air, @flight] do |form| %>
         <%= render "shared/flight_form", form: form %>
         <%= form.submit t("flights.table.submit"), data: { confirm: t("flights.registration_confirm") } %>

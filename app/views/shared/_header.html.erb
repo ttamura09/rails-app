@@ -1,31 +1,35 @@
 <%= image_tag "logo.png", size: "272x48", alt: "Blue Ticket" %>
-<% if current_customer %>
-  <ul class="account-menu">
-    <%= menu_link_to current_customer.name + t("honorific_title"), :account %>
-    <%= menu_link_to t("logout"), :session, method: :delete, data: { confirm: t("logout_confirmation") } %>
-  </ul>
-<% end %>
 
-<% if controller.kind_of?(Admin::Base) && current_administrator %>
+<nav class="menubar">
   <ul class="account-menu">
-    <%= current_administrator.name %>
-    <%= menu_link_to t("logout"), [:admin, :session], method: :delete, data: { confirm: t("logout_confirmation") } %>
+    <%= menu_link_to t("japanese"), change_language(:ja) %>
+    <%= menu_link_to t("english"), change_language(:en) %>
   </ul>
-<% end %>
-
-<% if controller.kind_of?(Air::Base) && current_airline %>
-  <ul class="account-menu">
-    <%= current_airline.name %>
-    <%= menu_link_to t("logout"), [:air, :session], method: :delete, data: { confirm: t("logout_confirmation") } %>
-  </ul>
-<% end %>
+</nav>
 
 <nav class="menubar">
   <ul>
     <%= menu_link_to t("top_page.page_title"), :root %>
     <%= menu_link_to t("account.my_page_title"), :account if current_customer %>
     <%= menu_link_to t("bookings.index_page_title"), [:account, :bookings] if current_customer %>
-    <%= menu_link_to t("japanese"), change_language(:ja) %>
-    <%= menu_link_to t("english"), change_language(:en) %>
   </ul>
 </nav>
+
+<ul class="account-menu">
+  <% if current_customer %>
+    <%= menu_link_to current_customer.name + t("honorific_title"), :account %>
+    <%= menu_link_to t("logout"), :session, method: :delete, data: { confirm: t("logout_confirmation") } %>
+    <br>
+  <% end %>
+  <% if controller.kind_of?(Admin::Base) && current_administrator %>
+    <%= current_administrator.name %>
+    <%= menu_link_to t("logout"), [:admin, :session], method: :delete, data: { confirm: t("logout_confirmation") } %>
+    <br>
+  <% end %>
+
+  <% if controller.kind_of?(Air::Base) && current_airline %>
+    <%= current_airline.name %>
+    <%= menu_link_to t("logout"), [:air, :session], method: :delete, data: { confirm: t("logout_confirmation") } %>
+    <br>
+  <% end %>
+</ul>

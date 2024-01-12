@@ -44,7 +44,7 @@
       <% @flight.airmodel.seats.each_with_index do |seat, i| %>
         <% next if seat.seat_class != @seat_class %>
         <%= check_box_tag "booking[seat_ids][]", seat.id, @booking.seat_ids.include?(seat.id) %>
-        <%= label_tag "booking_seat_ids_#{seat.id}", seat.number %><%= @flight.seat_status_mark(seat) %>
+        <%= label_tag "booking[seat_ids][]", seat.number %><%= @flight.seat_status_mark(seat) %>
         <% if (i + 1) % 6 == 0 %>
           <br>
         <% end %>

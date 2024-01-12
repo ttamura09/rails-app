@@ -6,16 +6,11 @@ class Air::FlightsController < Air::Base
   end
 
   def new
-    @bookings = Booking.order("id")
+    @bookings = Booking.order("id").page(params[:page]).per(30)
     @flights = Flight.search(params).page(params[:page]).per(30)
     if params[:origin].present? && params[:destination].present? && params[:origin] == params[:destination]
       flash[:notice] = t("flights.flash.different_airports")
-    else
-      flash.clear
     end
-    # @flights = Flight.order("id").where(operation: 1)
-    # @flights = @flights.select { |flight| flight.bookings.size > 0 }
-
     @flight = Flight.new
   end
 
@@ -29,8 +24,8 @@ class Air::FlightsController < Air::Base
     if @flight.origin_id != @flight.destination_id && @flight.save
       redirect_to [:new, :air, :flight], notice: t("flights.table.flight_added")
     else
-      @flights = Flight.order("id")
-      @flights = @flights.select { |flight| flight.bookings.size > 0 }
+      @bookings = Booking.order("id").page(params[:page]).per(30)
+      @flights = Flight.search(params).page(params[:page]).per(30)
       render "new"
     end
   end
@@ -45,19 +40,6 @@ class Air::FlightsController < Air::Base
     end
   end
 end
-
-# def update
-#   @customer = Customer.find(params[:customer_id])
-#   @booking = @customer.bookings.find(params[:id])
-#   @booking.booking_seat_flights.each do |booking_seat_flight|
-#     booking_seat_flight.update(checkin: 1)
-#   end
-#   if @booking.save
-#     redirect_to @customer, notice: t("bookings.booking_success")
-#   else
-#     redirect_to @customer, notice: t("bookings.checkin_failed")
-#   end
-# end
 
 private def flight_params
   params.require(:flight).permit(

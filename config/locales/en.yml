@@ -9,6 +9,7 @@ en:
 
   top_page:
     page_title: "Top Page"
+    flight_search: "Flight search"
     cancellation_information: "Cancellation Information"
     table:
       id: "ID"
@@ -85,6 +86,7 @@ en:
   flights:
     page_title: "Flight List"
     flight_registration: "Flight registration"
+    search_results: "Search results"
     table:
       name: "Flight Name"
       airline_flight: "Airline / Flight"

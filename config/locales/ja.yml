@@ -9,6 +9,7 @@ ja:
 
   top_page:
     page_title: "トップページ"
+    flight_search: "フライト検索"
     cancellation_information: "欠航情報"
     table:
       id: "ID"
@@ -90,6 +91,7 @@ ja:
   flights:
     page_title: "便の一覧"
     flight_registration: "便の登録"
+    search_results: "検索結果"
     table:
       name: "便名"
       airline_flight: "航空会社/便"
@@ -229,7 +231,7 @@ ja:
         passenger3_email: "搭乗者3のメールアドレス"
         passenger3_telephone_number: "搭乗者3の電話番号"
         payment_method: "支払方法"
-        seat_already_booked: "%{seat_number}は既に%{flight_name}便で予約されています。"
+        seat_already_booked: "%{seat_number}はすでに%{flight_name}で予約されています。"
       customer:
         name: "名前"
         alph_name: "アルファベット名"
@@ -240,6 +242,7 @@ ja:
         password: "新しいパスワード"
         password_confirmation: "新しいパスワードの確認"
       flight:
+        name: "航空会社/便"
         departure_time: "出発時刻"
         arrival_time: "到着時刻"
   account:
