@@ -1,25 +1,39 @@
 <%= render "shared/errors", obj: @booking %>
 
-<% (1..@number_of_passengers).each do |passenger_number| %>
+<%= form.fields_for :booking_seat_flights do |bfs_form| %>
   <table class="attr">
-    <%= form.label "passenger#{passenger_number}_name", t("booking_form.passenger", number: passenger_number) %>
+    <%= bfs_form.label :passenger_name, t("booking_form.passenger", number: bfs_form.index + 1) %>
     <tr>
-      <th><%= form.label "passenger#{passenger_number}_name", t("booking_form.name") %></th>
-      <td><%= form.text_field "passenger#{passenger_number}_name" %></td>
+      <th><%= bfs_form.label :passenger_name, t("booking_form.name") %></th>
+      <td><%= bfs_form.text_field :passenger_name %></td>
     </tr>
     <tr>
-      <th><%= form.label "passenger#{passenger_number}_birthday", t("booking_form.birthday") %></th>
-      <td><%= form.date_select "passenger#{passenger_number}_birthday", start_year: 1940, end_year: Time.current.year, use_month_numbers: true %></td>
+      <th><%= bfs_form.label :passenger_birthday, t("booking_form.birthday") %></th>
+      <td><%= bfs_form.date_select :passenger_birthday, start_year: 1940, end_year: Time.current.year, use_month_numbers: true %></td>
     </tr>
     <tr>
-      <th><%= form.label "passenger#{passenger_number}_telephone_number", t("booking_form.telephone_number") %></th>
-      <td><%= form.text_field "passenger#{passenger_number}_telephone_number" %></td>
+      <th><%= bfs_form.label :passenger_telephone_number, t("booking_form.telephone_number") %></th>
+      <td><%= bfs_form.text_field :passenger_telephone_number %></td>
     </tr>
     <tr>
-      <th><%= form.label "passenger#{passenger_number}_email", t("booking_form.email") %></th>
-      <td><%= form.text_field "passenger#{passenger_number}_email" %></td>
+      <th><%= bfs_form.label :passenger_email, t("booking_form.email") %></th>
+      <td><%= bfs_form.text_field :passenger_email %></td>
+    </tr>
+
+    <tr>
+      <th><%= bfs_form.label :seat_id, t("booking_form.seat_selection") %></th>
+      <td>
+        <% @flight.airmodel.seats.where(seat_class: @seat_class).each_with_index do |seat, i| %>
+          <%= bfs_form.radio_button :seat_id, seat.id %>
+          <%= label_tag :seat_id, seat.number %><%= @flight.seat_status_mark(seat) %>
+          <% if (i + 1) % 6 == 0 %>
+            <br>
+          <% end %>
+        <% end %>
+      </td>
     </tr>
   </table>
+  <%= bfs_form.hidden_field :flight_id, value: @flight.id %>
 <% end %>
 
 <table>
@@ -32,26 +46,26 @@
   <% end %>
 </table>
 
-<table class="attr">
-  <tr>
-    <th>
-      <%= form.label :seat_ids, t("booking_form.seat_selection") %>
-      <p><%= t("booking_form.seat_status.available") %>:⚪︎</p>
-      <p><%= t("booking_form.seat_status.checked_in") %>:☑️</p>
-      <p><%= t("booking_form.seat_status.booked") %>:×</p>
-    </th>
-    <td>
-      <% @flight.airmodel.seats.each_with_index do |seat, i| %>
-        <% next if seat.seat_class != @seat_class %>
-        <%= check_box_tag "booking[seat_ids][]", seat.id, @booking.seat_ids.include?(seat.id) %>
-        <%= label_tag "booking[seat_ids][]", seat.number %><%= @flight.seat_status_mark(seat) %>
-        <% if (i + 1) % 6 == 0 %>
-          <br>
-        <% end %>
-      <% end %>
-    </td>
-  </tr>
-</table>
+<%# 席選択のためのチェックボックス一覧 %>
+<!--<table class="attr">-->
+<!--  <tr>-->
+<!--    <th>-->
+<%#= form.label :seat_ids, t("booking_form.seat_selection") %>
+<!--      <p><%#= t("booking_form.seat_status.available") %>:⚪︎</p>-->
+<!--      <p><%#= t("booking_form.seat_status.checked_in") %>:☑️</p>-->
+<!--      <p><%#= t("booking_form.seat_status.booked") %>:×</p>-->
+<!--    </th>-->
+<!--    <td>-->
+<%# @flight.airmodel.seats.where(seat_class: @seat_class).each_with_index do |seat, i| %>
+<%#= check_box_tag "booking[seat_ids][]", seat.id, @booking.seat_ids.include?(seat.id) %>
+<%#= label_tag "booking[seat_ids][]", seat.number %><%#= @flight.seat_status_mark(seat) %>
+<%# if (i + 1) % 6 == 0 %>
+<!--          <br>-->
+<%# end %>
+<%# end %>
+<!--    </td>-->
+<!--  </tr>-->
+<!--</table>-->
 
 <%= form.hidden_field :seat_class, value: @seat_class %>
 <%= form.hidden_field :number_of_passengers, value: @number_of_passengers %>

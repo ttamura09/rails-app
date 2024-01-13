@@ -167,7 +167,7 @@ en:
       booked: "Booked"
 
   bookings:
-    seat_mismatch: "The number of selected seats does not match the number of passengers."
+    seat_mismatch: "Please review your seat selection. Each passenger must be assigned a unique seat."
     booking_success: "Booking completed successfully."
     checkin_success: "Check-in completed successfully."
     checkin_failed: "Check-in failed."

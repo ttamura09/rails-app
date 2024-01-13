@@ -20,11 +20,11 @@
       <th><%= label_tag "price", t("flights_search_form.labels.price") %></th>
       <td>
         <%= select_tag :min_price, options_for_select(
-          (0..50).map { |n| ["¥#{n * 1000}", n * 1000] }, params[:min_price]
+          (0..30).map { |n| ["¥#{n * 1000}", n * 1000] }, params[:min_price]
         ), include_blank: t("flights_search_form.select_prompt") %>
         ~
         <%= select_tag :max_price, options_for_select(
-          (0..50).map { |n| ["¥#{n * 1000}", n * 1000] },
+          (0..30).map { |n| ["¥#{n * 1000}", n * 1000] },
           params[:max_price]
         ), include_blank: t("flights_search_form.select_prompt") %>
       </td>

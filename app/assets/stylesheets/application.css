@@ -73,7 +73,7 @@ main {
 
 /* ヘッダー */
 header {
-    border-top: 4px solid rgba(124, 212, 234, 0.73);
+    border-top: 4px solid #97cdf3;
     padding-top: 4px;
 }
 
@@ -87,7 +87,7 @@ footer {
     font: 11px Verdana;
     color: #888;
     padding: 8px 0;
-    border-top: 4px solid rgba(124, 212, 234, 0.73);
+    border-top: 4px solid #97cdf3;
     text-align: center;
 }
 

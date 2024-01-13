@@ -70,7 +70,7 @@ ja:
         gender: "性別"
         birthday: "誕生日"
         password: "パスワード"
-        email: "メールア]ドレス"
+        email: "メールアドレス"
       options:
         male: "男性"
         female: "女性"
@@ -172,7 +172,7 @@ ja:
       booked: "予約済み"
 
   bookings:
-    seat_mismatch: "選択された席の数が予約人数と一致していません。"
+    seat_mismatch: "座席選択を再確認してください。各乗客には異なる座席が割り当てられている必要があります。"
     booking_success: "予約が完了しました。"
     checkin_success: "チェックインを完了しました。"
     checkin_failed: "チェックインに失敗しました。"

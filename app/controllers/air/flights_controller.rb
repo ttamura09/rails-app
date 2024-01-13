@@ -9,7 +9,7 @@ class Air::FlightsController < Air::Base
     @bookings = Booking.order("id").page(params[:page]).per(30)
     @flights = Flight.search(params).page(params[:page]).per(30)
     if params[:origin].present? && params[:destination].present? && params[:origin] == params[:destination]
-      flash[:notice] = t("flights.flash.different_airports")
+      flash.now[:notice] = t("flights.flash.different_airports")
     end
     @flight = Flight.new
   end
@@ -19,7 +19,7 @@ class Air::FlightsController < Air::Base
     @flight.airline_id = current_airline.id
 
     if @flight.origin_id == @flight.destination_id
-      flash[:notice] = t("flights.table.different_airports")
+      flash.now[:notice] = t("flights.table.different_airports")
     end
     if @flight.origin_id != @flight.destination_id && @flight.save
       redirect_to [:new, :air, :flight], notice: t("flights.table.flight_added")

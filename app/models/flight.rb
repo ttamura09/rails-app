@@ -105,10 +105,14 @@ class Flight < ApplicationRecord
         results = results.where("price <= ?", max_price)
       end
 
-      # (出発 or 到着)時刻の絞り込み
+      # 出発時刻の絞り込み
       if params[:time].present? && params[:selected_time_type].present?
         time = Time.parse("2000-01-01 #{params[:time]}")
-        results = results.where("#{params[:selected_time_type]}_time >= ?", time)
+        if params[:selected_time_type] == "departure"
+          results = results.where("departure_time >= ?", time)
+        else
+          results = results.where("arrival_time <= ?", time)
+        end
       end
 
       results

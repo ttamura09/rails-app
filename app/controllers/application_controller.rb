@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :set_locale
+  around_action :switch_locale
 
   class LoginRequired < StandardError; end
 
@@ -13,11 +13,12 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_customer
 
-  private def set_locale
-    I18n.locale = params[:locale] || I18n.default_locale
+  def switch_locale(&action)
+    locale = params[:locale] || I18n.default_locale
+    I18n.with_locale(locale, &action)
   end
 
-  def default_url_options
-    { locale: I18n.locale }
+  def default_url_options(options = {})
+    options.merge(locale: locale)
   end
 end

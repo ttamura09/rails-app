@@ -15,9 +15,9 @@ class Admin::BookingsController < Admin::Base
   end
 
   def destroy
-    @customer = Customer.find(params[:customer_id])
-    @booking = @customer.bookings.find(params[:id])
-    @booking.destroy
+    @customer = Customer.find_by(params[:customer_id])
+    @booking = @customer.bookings.find_by(params[:id])
+    @booking&.destroy
     redirect_to @customer, notice: t("bookings.deleted")
   end
 end

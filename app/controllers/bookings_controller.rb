@@ -17,6 +17,8 @@ class BookingsController < ApplicationController
     @booking = Booking.new
     @seat_class = params[:seat_class]
     @number_of_passengers = params[:number_of_passengers].to_i
+
+    @number_of_passengers.times { @booking.booking_seat_flights.build }
   end
 
   def edit
@@ -30,19 +32,15 @@ class BookingsController < ApplicationController
     @seat_class = params[:booking][:seat_class]
     @number_of_passengers = params[:booking][:number_of_passengers].to_i
 
-    @booking.number_of_passengers = @number_of_passengers
-    selected_seat_count = (booking_params[:seat_ids] ? booking_params[:seat_ids].size : 0)
-    if @number_of_passengers != selected_seat_count
-      flash[:notice] = t("bookings.seat_mismatch")
-    end
-
     @booking.customer = current_customer
     @booking.flight = @flight
     @booking.total_price = @flight.sum_price(@seat_class) * @number_of_passengers
-    if @number_of_passengers == selected_seat_count && @booking.save
-      @booking.booking_seat_flights.each do |booking_seat_flight|
-        booking_seat_flight.update(flight_id: @flight.id)
-      end
+
+    seat_ids = booking_params[:booking_seat_flights_attributes].values.map { |val| val[:seat_id] }
+    if seat_ids.any?(&:blank?) || seat_ids.uniq.size != @number_of_passengers
+      flash.now[:notice] = t("bookings.seat_mismatch")
+      render "new"
+    elsif @booking.save
       redirect_to :root, notice: t("bookings.booking_success")
     else
       render "new"
@@ -63,18 +61,15 @@ class BookingsController < ApplicationController
   end
 
   def destroy
-    @account = current_customer
-    @booking = @account.bookings.find(params[:id])
-    @booking.destroy
+    @booking = current_customer.bookings.find_by(params[:id])
+    @booking&.destroy
     redirect_to [:account, :bookings], notice: t("bookings.deleted")
   end
 
-  private def booking_params
+  def booking_params
     params.require(:booking).permit(
-      :passenger1_name, :passenger1_birthday, :passenger1_telephone_number, :passenger1_email,
-      :passenger2_name, :passenger2_birthday, :passenger2_telephone_number, :passenger2_email,
-      :passenger3_name, :passenger3_birthday, :passenger3_telephone_number, :passenger3_email,
-      :payment_method, seat_ids: []
+      :payment_method,
+      booking_seat_flights_attributes: [:seat_id, :passenger_name, :passenger_birthday, :passenger_telephone_number, :passenger_email, :flight_id]
     )
   end
 end

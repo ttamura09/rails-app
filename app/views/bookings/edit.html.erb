@@ -25,44 +25,30 @@
   </tr>
 </table>
 
-<table class="attr">
-  <tr>
-    <th><%= t("bookings.passenger.name") %></th>
-    <td><%= @booking.passenger1_name %></td>
-    <%== "<td>#{@booking.passenger2_name}</td>" if @booking.passenger2_name.present? %>
-    <%== "<td>#{@booking.passenger3_name}</td>" if @booking.passenger3_name.present? %>
-  </tr>
-  <tr>
-    <th><%= t("bookings.passenger.birthday") %></th>
-    <td><%= @booking.passenger1_birthday %></td>
-    <%== "<td>#{@booking.passenger2_birthday}</td>" if @booking.passenger2_name.present? %>
-    <%== "<td>#{@booking.passenger3_birthday}</td>" if @booking.passenger3_name.present? %>
-  </tr>
-  <tr>
-    <th><%= t("bookings.passenger.telephone_number") %></th>
-    <td><%= @booking.passenger1_telephone_number %></td>
-    <%== "<td>#{@booking.passenger2_telephone_number}</td>" if @booking.passenger2_name.present? %>
-    <%== "<td>#{@booking.passenger3_telephone_number}</td>" if @booking.passenger3_name.present? %>
-  </tr>
-  <tr>
-    <th><%= t("bookings.passenger.email") %></th>
-    <td><%= @booking.passenger1_email %></td>
-    <%== "<td>#{@booking.passenger2_email}</td>" if @booking.passenger2_name.present? %>
-    <%== "<td>#{@booking.passenger3_email}</td>" if @booking.passenger3_name.present? %>
-  </tr>
-  <tr>
-    <th><%= t("bookings.passenger.seat") %></th>
-    <% @booking.seats.each do |seat| %>
-      <td><%= seat.number %></td>
-    <% end %>
-  </tr>
-  <tr>
-    <th><%= t("bookings.passenger.class") %></th>
-    <% @booking.seats.each do |seat| %>
-      <td><%= seat_class_map[seat.seat_class] %> </td>
-    <% end %>
-  </tr>
-</table>
+<div class="booking-details">
+  <h4>予約番号: <%= @booking.id %></h4>
+  <h4>合計金額: <%= @booking.total_price %> 円</h4>
+  <h4>支払い方法: <%= @booking.payment_method %></h4>
+
+  <h3>予約されたフライトの詳細:</h3>
+
+  <% @booking.booking_seat_flights.each do |booking_seat_flight| %>
+    <div class="booking-seat-flight">
+      <h5>乗客名: <%= booking_seat_flight.passenger_name %></h5>
+      <p>生年月日: <%= booking_seat_flight.passenger_birthday %></p>
+      <p>電話番号: <%= booking_seat_flight.passenger_telephone_number %></p>
+      <p>メールアドレス: <%= booking_seat_flight.passenger_email %></p>
+      <p>座席番号: <%= booking_seat_flight.seat.number %> ( <%= booking_seat_flight.seat.seat_class %> クラス)</p>
+      <p>フライト名: <%= booking_seat_flight.flight.name %></p>
+      <p>出発日時: <%= booking_seat_flight.flight.departure_date %> <%= booking_seat_flight.flight.departure_time.strftime("%H:%M") %></p>
+      <p>到着日時: <%= booking_seat_flight.flight.arrival_date %> <%= booking_seat_flight.flight.arrival_time.strftime("%H:%M") %></p>
+      <p>出発地: <%= booking_seat_flight.flight.origin.name %></p>
+      <p>目的地: <%= booking_seat_flight.flight.destination.name %></p>
+      <p>チェックイン状態: <%= booking_seat_flight.checkin ? '完了' : '未完了' %></p>
+    </div>
+    <hr>
+  <% end %>
+</div>
 <%= form_for [:account, @booking] do |form| %>
   <%= render "shared/errors", obj: @booking %>
   <div><%= form.submit t("bookings.passenger.check_in") %></div>
