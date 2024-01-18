@@ -2,9 +2,9 @@
 <h1><%= @page_title %></h1>
 
 <%= link_to t("air.return_to_top"), [:air, :root] %>
-
+<hr>
 <div class="tabs">
-  <input type="radio" name="tab-control" id="tab1" checked>
+  <input type="radio" name="tab-control" id="tab1">
   <input type="radio" name="tab-control" id="tab2">
   <input type="radio" name="tab-control" id="tab3">
   <label for="tab1" class="tab-title"><%= t("bookings.bookings_list") %></label>
@@ -26,7 +26,7 @@
         </tr>
         <% @bookings.each do |booking| %>
           <tr>
-            <td><%= booking.flight.name %></td>
+            <td><%= link_to booking.flight.name, [:air, booking.flight] %></td>
             <td><%= "#{booking.flight.origin.name} → #{booking.flight.destination.name}" %></td>
             <td><%= booking.flight.departure_date.strftime("%Y/%m/%d") %></td>
             <td><%= "#{booking.flight.departure_time.strftime("%H:%M")} → #{booking.flight.arrival_time.strftime("%H:%M")}" %></td>
@@ -34,7 +34,7 @@
             <td><%= "#{booking.seats.size}" %></td>
             <td><%= "¥#{booking.total_price}" %></td>
             <td><%= booking.payment_method %></td>
-            <td><%= link_to booking.customer.name, [:air, booking.customer] %></td>
+            <td><%= link_to booking.customer.login_name, [:air, booking.customer] %></td>
           </tr>
         <% end %>
         <%= paginate @bookings %>
@@ -48,12 +48,10 @@
             <th><%= label_tag :origin, t("flights_search_form.labels.origin") %></th>
             <td><%= select_tag :origin, options_for_select(Airport.all.map { |airport| [airport.name, airport.id] }, params[:origin]), include_blank: t("flights_search_form.select_prompt") %></td>
           </tr>
-
           <tr>
             <th><%= label_tag :destination, t("flights_search_form.labels.destination") %></th>
             <td><%= select_tag :destination, options_for_select(Airport.all.map { |airport| [airport.name, airport.id] }, params[:destination]), include_blank: t("flights_search_form.select_prompt") %></td>
           </tr>
-
           <tr>
             <th><%= label_tag :departure_date, t("flights_search_form.labels.departure_date") %></th>
             <td><%= date_field_tag :departure_date, (params[:departure_date] ? params[:departure_date] : Time.now.to_date) %></td>
@@ -75,14 +73,13 @@
           <th><%= t("flights.table.economy_business_first_seats") %></th>
           <th><%= t("flights.table.operation_status") %></th>
           <th><%= t("top_page.operation_status.cancelled") %></th>
-          <th><%= t("flights.table.flight_details") %></th>
         </tr>
         <% @flights.each do |flight| %>
           <% next unless flight.operation %>
           <tr>
             <% bookable_flights_count += 1 %>
             <td><%= flight.id %></td>
-            <td><%= flight.name %></td>
+            <td><%= link_to flight.name, [:air, flight] %></td>
             <td><%= "#{flight.origin.name} → #{flight.destination.name}" %></td>
             <td><%= flight.departure_date.strftime("%Y/%m/%d") %></td>
             <td><%= "#{flight.departure_time.strftime("%H:%M")} → #{flight.arrival_time.strftime("%H:%M")}" %></td>
@@ -97,7 +94,6 @@
                 <%= form.submit t("flights.operation_status.cancelled"), data: { confirm: t("flights.submit_confirm") } %>
               <% end %>
             </td>
-            <td><%= link_to t("flights.table.flight_details"), [:air, flight] %></td>
           </tr>
         <% end %>
         <%= paginate @flights %>

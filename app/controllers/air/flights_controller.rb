@@ -8,9 +8,6 @@ class Air::FlightsController < Air::Base
   def new
     @bookings = Booking.order("id").page(params[:page]).per(30)
     @flights = Flight.search(params).page(params[:page]).per(30)
-    if params[:origin].present? && params[:destination].present? && params[:origin] == params[:destination]
-      flash.now[:notice] = t("flights.flash.different_airports")
-    end
     @flight = Flight.new
   end
 
@@ -18,10 +15,17 @@ class Air::FlightsController < Air::Base
     @flight = Flight.new(flight_params)
     @flight.airline_id = current_airline.id
 
+    departure = DateTime.parse("#{flight_params[:departure_date]} #{flight_params[:departure_time]}")
+    arrival = DateTime.parse("#{flight_params[:arrival_date]} #{flight_params[:arrival_time]}")
     if @flight.origin_id == @flight.destination_id
       flash.now[:notice] = t("flights.table.different_airports")
+    elsif departure < DateTime.now || arrival < DateTime.now
+      flash.now[:notice] = t("flights.table.past_date_not_allowed")
+    elsif departure >= arrival
+      flash.now[:notice] = t("flights.table.departure_before_arrival")
     end
-    if @flight.origin_id != @flight.destination_id && @flight.save
+
+    if @flight.origin_id != @flight.destination_id && (departure >= DateTime.now || arrival >= DateTime.now) && departure < arrival && @flight.save
       redirect_to [:new, :air, :flight], notice: t("flights.table.flight_added")
     else
       @bookings = Booking.order("id").page(params[:page]).per(30)
@@ -34,9 +38,9 @@ class Air::FlightsController < Air::Base
     @flight = Flight.find(params[:id])
     @flight.operation = 0
     if @flight.save
-      redirect_to [:new, :air, :flight], notice: "欠航完了"
+      redirect_to [:new, :air, :flight], notice: t("flights.table.cancellation_successful")
     else
-      redirect_to [:new, :air, :flight], notice: "欠航失敗"
+      redirect_to [:new, :air, :flight], notice: t("flights.table.cancellation_failed")
     end
   end
 end

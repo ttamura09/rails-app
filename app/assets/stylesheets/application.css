@@ -179,3 +179,122 @@ ul.toolbar li:not(:last-child):after {
     font-weight: bold;
     border-bottom: 1px solid white;
 }
+
+/*検索フォーム*/
+.form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-select {
+    padding: 8px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.submit-button {
+    width: 50%;
+    height: 50px;
+    background: #228bc8;
+    color: #fff;
+    border: 1px solid #228bc8;
+    border-radius: 30px;
+    font-size: 16px;
+
+}
+
+.submit-button:hover {
+    background: #1b7db6;
+}
+
+.details {
+    transition: .3s;
+    overflow: hidden;
+    margin-top: -10px;
+    padding-bottom: 20px;
+
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+}
+
+.details[open] {
+    margin-top: 0;
+    padding-bottom: 10px;
+}
+
+.details-summary {
+    display: block;
+    padding: 15px;
+    transition: .3s;
+    transform: translateY(10px);
+}
+
+.details-summary {
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+}
+
+.icon-arrow {
+    &:before {
+        position: absolute;
+        content: '';
+        width: 18px;
+        height: 18px;
+        background: #228bc8;
+        color: #fff;
+        border-radius: 50%;
+        top: 50%;
+        left: 0;
+        margin-top: -7px;
+    }
+
+    &:after {
+        position: absolute;
+        content: '';
+        width: 4px;
+        height: 4px;
+        border-top: solid 1px #fff;
+        border-right: solid 1px #fff;
+        top: 50%;
+        left: 5px;
+        transform: rotate(45deg);
+        margin-top: -1px;
+    }
+}
+
+.details[open] .details-summary {
+    transform: translateY(0);
+    animation: fadeIn .3s ease;
+    &:after {
+        transform: rotate(135deg);
+        left: 7px;
+    }
+}
+
+/*予約詳細*/
+.details-content {
+    padding: 20px;
+}
+
+.booking-details {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 600px;
+    margin: 20px auto;
+}

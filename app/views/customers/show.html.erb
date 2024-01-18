@@ -27,13 +27,16 @@
     <th><%= t("bookings.table.origin_destination") %></th>
     <th><%= t("bookings.table.date") %></th>
     <th><%= t("bookings.table.times") %></th>
-    <th><%= t("bookings.table.class") %></th>
-    <th><%= t("bookings.table.number_of_passengers") %></th>
-    <th><%= t("bookings.table.total_price") %></th>
-    <th><%= t("bookings.table.payment_method") %></th>
-    <th><%= t("bookings.passenger.checkin_status") %></th>
     <th><%= t("bookings.passenger.check_in") %></th>
-    <th><%= t("bookings.delete_booking") %></th>
+    <th><%= t("flights.table.flight_details") %></th>
+
+    <!--    <th><%#= t("bookings.table.class") %></th>-->
+    <!--    <th><%#= t("bookings.table.number_of_passengers") %></th>-->
+    <!--    <th><%#= t("bookings.table.total_price") %></th>-->
+    <!--    <th><%#= t("bookings.table.payment_method") %></th>-->
+    <!--    <th><%#= t("bookings.passenger.checkin_status") %></th>-->
+    <!--    <th><%#= t("bookings.passenger.check_in") %></th>-->
+    <!--    <th><%#= t("bookings.delete_booking") %></th>-->
   </tr>
   <% @bookings.each do |booking| %>
     <tr>
@@ -41,18 +44,29 @@
       <td><%= "#{booking.flight.origin.name} → #{booking.flight.destination.name}" %></td>
       <td><%= booking.flight.departure_date.strftime("%Y/%m/%d") %></td>
       <td><%= "#{booking.flight.departure_time.strftime("%H:%M")} → #{booking.flight.arrival_time.strftime("%H:%M")}" %></td>
-      <td><%= seat_class_map[booking.seats.first.seat_class] %>
-      <td><%= "#{booking.seats.size}" %>
-      <td><%= "¥#{booking.total_price}" %></td>
-      <td><%= booking.payment_method %></td>
-      <td><%= (booking.booking_seat_flights.first.checkin ? t("bookings.passenger.completed") : t("bookings.passenger.not_completed")) %></td>
-      <td><%= form_for [:admin, @customer, booking] do |form| %>
-          <%= render "shared/errors", obj: booking %>
-          <div><%= form.submit t("bookings.passenger.check_in") %></div>
-        <% end %>
+      <td>
+        <details class="details">
+          <summary class="details-summary icon-arrow"><%= t("bookings.passenger.check_in") %></summary>
+          <% booking.booking_seat_flights.each do |bsf| %>
+            <p>
+              <%= form_for [:admin, bsf, booking] do |form| %>
+                <%= render "shared/errors", obj: booking %>
+                <%= bsf.passenger_name %><%= bsf.seat.number %>: <%= bsf.checkin ? t("bookings.passenger.completed") : t("bookings.passenger.not_completed") %><%= form.submit t("bookings.passenger.check_in") %>
+              <% end %>
+            </p>
+          <% end %>
+        </details>
       </td>
-      <td><%= link_to t("bookings.delete_booking"), [:admin, @customer, booking], method: :delete, data: { confirm: t("bookings.delete_confirm") } %></td>
+      <td>
+        <details class="details">
+          <summary class="details-summary icon-arrow"><%= t("flights.table.flight_details") %></summary>
+          <p><%= t("bookings.table.number_of_passengers") %><%= "#{booking.seats.size}" %>
+          <p><%= booking.payment_method %></p>
+          <p><%= "¥#{booking.total_price}" %></p>
+          <p><%= "#{t("flights.table.airmodel_name")}:#{booking.flight.airmodel.name}" %></p>
+          <p><%= link_to t("bookings.delete_booking"), [:admin, @customer, booking], method: :delete, data: { confirm: t("bookings.delete_confirm") } %></p>
+        </details>
+      </td>
     </tr>
   <% end %>
 </table>
-

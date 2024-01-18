@@ -38,7 +38,7 @@ class AccountsController < ApplicationController
 
   def destroy
     @customer = current_customer
-    @customer.destroy
+    @customer&.destroy
     redirect_to :root, notice: t("account.deleted")
   end
 

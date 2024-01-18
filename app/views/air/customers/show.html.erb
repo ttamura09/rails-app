@@ -31,7 +31,6 @@
     <th><%= t("bookings.table.number_of_passengers") %></th>
     <th><%= t("bookings.table.total_price") %></th>
     <th><%= t("bookings.table.payment_method") %></th>
-    <th><%= t("bookings.passenger.checkin_status") %></th>
   </tr>
   <% @bookings.each do |booking| %>
     <tr>
@@ -43,7 +42,6 @@
       <td><%= "#{booking.seats.size}" %>
       <td><%= "¥#{booking.total_price}" %></td>
       <td><%= booking.payment_method %></td>
-      <td><%= (booking.booking_seat_flights.first.checkin ? t("bookings.passenger.completed") : t("bookings.passenger.not_completed")) %></td>
     </tr>
   <% end %>
 </table>

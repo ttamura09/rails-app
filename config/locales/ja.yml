@@ -9,7 +9,7 @@ ja:
 
   top_page:
     page_title: "トップページ"
-    flight_search: "フライト検索"
+    flight_search: "便の検索"
     cancellation_information: "欠航情報"
     table:
       id: "ID"
@@ -123,15 +123,19 @@ ja:
       operation: "運行"
       submit: "登録する"
       add_flight: "便の追加"
-      flight_added: "フライトを追加しました。"
+      flight_added: "便を追加しました。"
       return_to_operations: "便の操作へ戻る"
       different_airports: "出発地と到着地は異なる空港を指定してください。"
+      departure_before_arrival: "出発時刻は到着時刻より早く設定する必要があります。"
       seats_status: "座席状況"
+      cancellation_successful: "欠航完了"
+      cancellation_failed: "欠航失敗"
+      past_date_not_allowed: "出発時刻、到着時刻は過去の日時を選択できません。"
 
     no_flights: "ご指定の搭乗日、区間では予約可能な便がございません。"
     no_bookings: "予約された便がありません。"
     registration_confirm: "この内容で登録しますか?"
-    submit_confirm: "このフライトを欠航しますか？"
+    submit_confirm: "この便を欠航しますか？"
     operation_status:
       operating: "運行"
       cancelled: "欠航"
@@ -173,15 +177,19 @@ ja:
 
   bookings:
     seat_mismatch: "座席選択を再確認してください。各乗客には異なる座席が割り当てられている必要があります。"
-    booking_success: "予約が完了しました。"
+    booking_success: "予約が正常に完了しました。"
+    booking_completed: "予約完了"
     checkin_success: "チェックインを完了しました。"
     checkin_failed: "チェックインに失敗しました。"
     deleted: "予約を削除しました。"
+    incorrect_booking_number: "入力された予約番号が正しくありません。"
+    incorrect_telephone_number: "入力された電話番号が正しくありません。"
 
     index_page_title: "予約確認"
     booking_information: "予約情報"
     booking_history: "予約履歴"
     bookings_list: "予約一覧"
+    seat_class: "%{seat_class_map[%{seat_class}]}"
 
     table:
       airline_flight: "航空会社/便名"
@@ -192,7 +200,7 @@ ja:
       number_of_passengers: "予約人数"
       total_price: "合計料金"
       payment_method: "決済方法"
-      details: "予約詳細へ進む"
+      details: "予約詳細"
 
     show_page_title: "予約詳細"
     return_to_list: "予約一覧へ戻る"
@@ -202,9 +210,10 @@ ja:
       birthday: "誕生日"
       telephone_number: "電話番号"
       email: "メールアドレス"
+      booking_number: "予約番号"
       seat: "予約した席"
       class: "クラス"
-      checkin_status: "チェックイン状況"
+      checkin_status: "チェックイン状態"
       checkin_link: "チェックインへ進む"
       check_in: "チェックイン"
       completed: "完了"
@@ -216,22 +225,17 @@ ja:
     models:
       booking: "予約"
       account: "アカウント"
+      booking_seat_flights: "搭乗者の座席予約"
     attributes:
       booking:
-        passenger1_name: "搭乗者1の氏名"
-        passenger1_birthday: "搭乗者1の誕生日"
-        passenger1_email: "搭乗者1のメールアドレス"
-        passenger1_telephone_number: "搭乗者1の電話番号"
-        passenger2_name: "搭乗者2の氏名"
-        passenger2_birthday: "搭乗者2の誕生日"
-        passenger2_email: "搭乗者2のメールアドレス"
-        passenger2_telephone_number: "搭乗者2の電話番号"
-        passenger3_name: "搭乗者3の氏名"
-        passenger3_birthday: "搭乗者3の誕生日"
-        passenger3_email: "搭乗者3のメールアドレス"
-        passenger3_telephone_number: "搭乗者3の電話番号"
         payment_method: "支払方法"
         seat_already_booked: "%{seat_number}はすでに%{flight_name}で予約されています。"
+      booking_seat_flights:
+        passenger_name: "氏名"
+        passenger_birthday: "搭乗者の誕生日"
+        passenger_email: "搭乗者のメールアドレス"
+        passenger_telephone_number: "搭乗者の電話番号"
+        base: ""
       customer:
         name: "名前"
         alph_name: "アルファベット名"

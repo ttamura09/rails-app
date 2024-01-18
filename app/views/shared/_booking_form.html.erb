@@ -21,7 +21,13 @@
     </tr>
 
     <tr>
-      <th><%= bfs_form.label :seat_id, t("booking_form.seat_selection") %></th>
+      <th>
+        <%= bfs_form.label :seat_id,
+                           "#{t("booking_form.seat_selection")}<br>
+       #{t("booking_form.seat_status.available")}:⚪︎<br>
+       #{t("booking_form.seat_status.checked_in")}:☑️<br>
+       #{t("booking_form.seat_status.booked")}:×".html_safe
+        %></th>
       <td>
         <% @flight.airmodel.seats.where(seat_class: @seat_class).each_with_index do |seat, i| %>
           <%= bfs_form.radio_button :seat_id, seat.id %>
@@ -45,27 +51,6 @@
     </tr>
   <% end %>
 </table>
-
-<%# 席選択のためのチェックボックス一覧 %>
-<!--<table class="attr">-->
-<!--  <tr>-->
-<!--    <th>-->
-<%#= form.label :seat_ids, t("booking_form.seat_selection") %>
-<!--      <p><%#= t("booking_form.seat_status.available") %>:⚪︎</p>-->
-<!--      <p><%#= t("booking_form.seat_status.checked_in") %>:☑️</p>-->
-<!--      <p><%#= t("booking_form.seat_status.booked") %>:×</p>-->
-<!--    </th>-->
-<!--    <td>-->
-<%# @flight.airmodel.seats.where(seat_class: @seat_class).each_with_index do |seat, i| %>
-<%#= check_box_tag "booking[seat_ids][]", seat.id, @booking.seat_ids.include?(seat.id) %>
-<%#= label_tag "booking[seat_ids][]", seat.number %><%#= @flight.seat_status_mark(seat) %>
-<%# if (i + 1) % 6 == 0 %>
-<!--          <br>-->
-<%# end %>
-<%# end %>
-<!--    </td>-->
-<!--  </tr>-->
-<!--</table>-->
 
 <%= form.hidden_field :seat_class, value: @seat_class %>
 <%= form.hidden_field :number_of_passengers, value: @number_of_passengers %>

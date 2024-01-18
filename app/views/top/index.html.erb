@@ -1,28 +1,37 @@
 <% @page_title = t("top_page.page_title") %>
 <h1><%= @page_title %></h1>
 
+<nav class="menubar">
+  <ul class="account-menu">
+    <%= menu_link_to t("japanese"), change_language(:ja) %>
+    <%= menu_link_to t("english"), change_language(:en) %>
+  </ul>
+</nav>
+
 <!--フライト検索フォーム-->
 <%= render "shared/flights_search_form" %>
 
-<h2><%= t("top_page.cancellation_information") %></h2>
-<table class="list">
-  <tr>
-    <th><%= t("top_page.table.flight_name") %></th>
-    <th><%= t("top_page.table.origin_destination") %></th>
-    <th><%= t("top_page.table.date") %></th>
-    <th><%= t("top_page.table.times") %></th>
-    <th><%= t("top_page.table.status") %></th>
-  </tr>
-  <% @flights.each do |flight| %>
+<% if @flights.present? %>
+  <h2><%= t("top_page.cancellation_information") %></h2>
+  <table class="list">
     <tr>
-      <td><%= flight.name %></td>
-      <td><%= "#{flight.origin.name} → #{flight.destination.name}" %></td>
-      <td><%= flight.departure_date.strftime("%Y/%m/%d") %></td>
-      <td><%= "#{flight.departure_time.strftime("%H:%M")} → #{flight.arrival_time.strftime("%H:%M")}" %></td>
-      <td><%= flight.operation ? t("top_page.operation_status.operating") : t("top_page.operation_status.cancelled") %></td>
+      <th><%= t("top_page.table.flight_name") %></th>
+      <th><%= t("top_page.table.origin_destination") %></th>
+      <th><%= t("top_page.table.date") %></th>
+      <th><%= t("top_page.table.times") %></th>
+      <th><%= t("top_page.table.status") %></th>
     </tr>
-  <% end %>
-</table>
+    <% @flights.each do |flight| %>
+      <tr>
+        <td><%= flight.name %></td>
+        <td><%= "#{flight.origin.name} → #{flight.destination.name}" %></td>
+        <td><%= flight.departure_date.strftime("%Y/%m/%d") %></td>
+        <td><%= "#{flight.departure_time.strftime("%H:%M")} → #{flight.arrival_time.strftime("%H:%M")}" %></td>
+        <td><%= flight.operation ? t("top_page.operation_status.operating") : t("top_page.operation_status.cancelled") %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
 
 <%= link_to t("top_page.links.login"), [:new, :session] unless current_customer %>
 <%= link_to t("top_page.links.signup"), [:new, :account] unless current_customer %>

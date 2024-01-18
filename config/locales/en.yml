@@ -121,7 +121,11 @@ en:
       flight_added: "Flight added."
       return_to_operations: "Return to flight operations"
       different_airports: "Please specify different airports for departure and arrival."
+      departure_before_arrival: "Departure time must be set earlier than arrival time."
       seats_status: "Seating situation"
+      cancellation_successful: "Flight cancellation successful."
+      cancellation_failed: "Flight cancellation failed."
+      past_date_not_allowed: "Departure and arrival times cannot be in the past."
 
     no_flights: "No flights available for your selected criteria."
     no_bookings: "There are no flights booked."
@@ -169,9 +173,12 @@ en:
   bookings:
     seat_mismatch: "Please review your seat selection. Each passenger must be assigned a unique seat."
     booking_success: "Booking completed successfully."
+    booking_completed: "Booking completed"
     checkin_success: "Check-in completed successfully."
     checkin_failed: "Check-in failed."
     deleted: "Your booking has been deleted."
+    incorrect_booking_number: "The entered reservation number is incorrect."
+    incorrect_telephone_number: "The entered telephone number is incorrect."
 
     index_page_title: "Booking Confirmation"
     booking_information: "Booking information"
@@ -195,8 +202,9 @@ en:
     passenger:
       name: "Name"
       birthday: "Birthday"
-      telephone_number: "Telephone Number"
+      telephone_number: "Telephone number"
       email: "Email Address"
+      booking_number: "Booking number"
       seat: "Booked Seats"
       class: "Class"
       checkin_status: "Check-in status"
@@ -211,6 +219,12 @@ en:
     attributes:
       booking:
         seat_already_booked: "Seat %{seat_number} is already booked for flight %{flight_name}."
+      booking_seat_flights:
+        passenger_name: "passenger name"
+        passenger_birthday: "passenger birthday"
+        passenger_email: "passenger email"
+        passenger_telephone_number: "passenger telephone number"
+        base: ""
 
   account:
     created: "Your account has been successfully registered."

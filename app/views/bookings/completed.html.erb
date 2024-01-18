@@ -1,0 +1,45 @@
+<% @page_title = t("bookings.booking_completed") %>
+<h1><%= @page_title %></h1>
+
+<div>
+  <h2><%= t("flights.table.flight_details") %></h2>
+  <table class="list">
+    <tr>
+      <th><%= t("bookings.table.airline_flight") %></th>
+      <th><%= t("bookings.table.origin_destination") %></th>
+      <th><%= t("bookings.table.date") %></th>
+      <th><%= t("bookings.table.times") %></th>
+      <th><%= t("bookings.table.class") %></th>
+      <th><%= t("bookings.table.number_of_passengers") %></th>
+      <th><%= t("bookings.table.total_price") %></th>
+      <th><%= t("bookings.table.payment_method") %></th>
+    </tr>
+    <tr>
+      <td><%= @booking.flight.name %></td>
+      <td><%= "#{@booking.flight.origin.name} → #{@booking.flight.destination.name}" %></td>
+      <td><%= @booking.flight.departure_date.strftime("%Y/%m/%d") %></td>
+      <td><%= "#{@booking.flight.departure_time.strftime("%H:%M")} → #{@booking.flight.arrival_time.strftime("%H:%M")}" %></td>
+      <td><%= seat_class_map[@booking.seats.first.seat_class] %></td>
+      <td><%= "#{@booking.seats.size}" %></td>
+      <td><%= "¥#{@booking.total_price}" %></td>
+      <td><%= @booking.payment_method %></td>
+    </tr>
+  </table>
+
+  <h2><%= t("bookings.show_page_title") %></h2>
+</div>
+
+<div class="booking-details">
+  <h4><%= t("bookings.passenger.booking_number") %>: <%= @booking.id %></h4>
+
+  <% @booking.booking_seat_flights.each do |booking_seat_flight| %>
+    <hr>
+    <div class="booking-seat-flight">
+      <h5><%=t("bookings.passenger.name") %>: <%= booking_seat_flight.passenger_name %></h5>
+      <p><%=t("bookings.passenger.birthday") %>: <%= booking_seat_flight.passenger_birthday %></p>
+      <p><%=t("bookings.passenger.telephone_number") %>: <%= booking_seat_flight.passenger_telephone_number %></p>
+      <p><%=t("bookings.passenger.email") %>: <%= booking_seat_flight.passenger_email %></p>
+      <p><%=t("bookings.passenger.seat") %>: <%= booking_seat_flight.seat.number %> (<%= seat_class_map[booking_seat_flight.seat.seat_class] %>)</p>
+    </div>
+  <% end %>
+</div>

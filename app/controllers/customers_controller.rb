@@ -15,8 +15,8 @@ class CustomersController < Admin::Base
   end
 
   def destroy
-    @customer = Customer.find(params[:id])
-    @customer.destroy
+    @customer = Customer.find_by(id: params[:id])
+    @customer&.destroy
     redirect_to :customers, notice: t("account.deleted")
   end
 end

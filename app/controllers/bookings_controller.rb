@@ -18,12 +18,14 @@ class BookingsController < ApplicationController
     @seat_class = params[:seat_class]
     @number_of_passengers = params[:number_of_passengers].to_i
 
-    @number_of_passengers.times { @booking.booking_seat_flights.build }
+    @number_of_passengers.times do
+      @booking.booking_seat_flights.new
+    end
   end
 
   def edit
-    @account = current_customer
-    @booking = @account.bookings.find(params[:id])
+    @booking_seat_flight = BookingSeatFlight.find(params[:booking_seat_flight_id])
+    @booking = current_customer.bookings.find(params[:id])
   end
 
   def create
@@ -41,34 +43,48 @@ class BookingsController < ApplicationController
       flash.now[:notice] = t("bookings.seat_mismatch")
       render "new"
     elsif @booking.save
-      redirect_to :root, notice: t("bookings.booking_success")
+      redirect_to [@flight, @booking, :completed], notice: t("bookings.booking_success")
     else
       render "new"
     end
   end
 
   def update
-    @account = current_customer
-    @booking = @account.bookings.find(params[:id])
-    @booking.booking_seat_flights.each do |booking_seat_flight|
-      booking_seat_flight.update(checkin: 1)
-    end
-    if @booking.save
-      redirect_to [:account, @booking], notice: t("bookings.checkin_success")
+    @booking_seat_flight = BookingSeatFlight.find(params[:booking_seat_flight_id])
+    @booking = current_customer.bookings.find(params[:id])
+
+    if @booking.id != params[:booking_id].to_i
+      flash.now[:notice] = t("bookings.incorrect_booking_number")
+      render "edit"
+    elsif @booking_seat_flight.passenger_telephone_number != params[:passenger_telephone_number]
+      flash.now[:notice] = t("bookings.incorrect_telephone_number")
+      render "edit"
+    elsif @booking_seat_flight.update(checkin: true)
+      redirect_to [@booking_seat_flight, @booking, :check_in_completed], notice: t("bookings.checkin_success")
     else
       render "edit"
     end
   end
 
   def destroy
-    @booking = current_customer.bookings.find_by(params[:id])
+    @booking = current_customer.bookings.find_by(id: params[:id])
     @booking&.destroy
     redirect_to [:account, :bookings], notice: t("bookings.deleted")
   end
 
+  def completed
+    @flight = Flight.find(params[:flight_id])
+    @booking = Booking.find(params[:booking_id])
+  end
+
+  def check_in_completed
+    @booking_seat_flight = BookingSeatFlight.find(params[:booking_seat_flight_id])
+    @booking = Booking.find(params[:booking_id])
+  end
+
   def booking_params
     params.require(:booking).permit(
-      :payment_method,
+      :payment_method, :passenger_telephone_number,
       booking_seat_flights_attributes: [:seat_id, :passenger_name, :passenger_birthday, :passenger_telephone_number, :passenger_email, :flight_id]
     )
   end

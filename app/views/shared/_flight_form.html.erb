@@ -12,7 +12,7 @@
 
   <tr>
     <th><%= form.label :departure_date, t("flights.table.departure_date") %></th>
-    <td><%= form.date_field :departure_date, value: (params[:departure_date] || Time.now.to_date), min: Time.now.to_date %></td>
+    <td><%= form.date_field :departure_date, value: (params[:departure_date] || Time.now.to_date) %></td>
   </tr>
   <tr>
     <th><%= form.label :departure_time, t("flights.table.departure_time") %></th>
@@ -47,7 +47,7 @@
     <th><%= form.label :price, t("flights.table.price") %></th>
     <td>
       <%= form.select :price, options_for_select(
-        (1..50).map { |n| ["¥#{n * 1000}", n * 1000] },
+        (1..20).map { |n| ["¥#{n * 1000}", n * 1000] },
         params[:price]
       ) %>
     </td>

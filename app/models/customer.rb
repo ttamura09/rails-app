@@ -8,7 +8,7 @@ class Customer < ApplicationRecord
 
   # アルファベット名
   validates :alph_name, presence: true,
-            format: { with: /\A[A-Z\s]*\z/, allow_blank: true },
+            format: { with: /\A[A-Za-z\s]*\z/, allow_blank: true },
             length: { minimum: 2, maximum: 20, allow_blank: true }
 
   # ログイン名
@@ -26,5 +26,6 @@ class Customer < ApplicationRecord
   # パスワード
   attr_accessor :current_password
   validates :password, presence: { if: :current_password },
+            format: { with: /\A[A-Za-z0-9]*\z/, allow_blank: true },
             length: { minimum: 2, maximum: 20, allow_blank: true }
 end

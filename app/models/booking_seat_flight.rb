@@ -10,8 +10,10 @@ class BookingSeatFlight < ApplicationRecord
             format: { with: /\A[0-9-()]*\z/, allow_blank: true },
             length: { minimum: 8, maximum: 20, allow_blank: true }
 
-  validate do
-    next unless BookingSeatFlight.where(seat_id: seat_id, flight_id: flight_id).where.not(booking_id: id).exists?
+  validate :check_seat_availability, :on => :create
+
+  def check_seat_availability
+    return unless BookingSeatFlight.where(seat_id: seat_id, flight_id: flight_id).exists?
     seat_number = Seat.find(seat_id).number
     flight_name = Flight.find(flight_id).name
     errors.add(:base, I18n.t("activerecord.attributes.booking.seat_already_booked", seat_number: seat_number, flight_name: flight_name))

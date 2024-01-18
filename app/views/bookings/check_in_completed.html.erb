@@ -1,6 +1,5 @@
-<% @page_title = t("bookings.passenger.check_in") %>
+<% @page_title = t("booking_form.seat_status.checked_in") %>
 <h1><%= @page_title %></h1>
-<td><%= link_to t("bookings.return_to_details"), [:account, @booking] %></td>
 
 <table class="list">
   <tr>
@@ -36,20 +35,8 @@
     <p><%= t("bookings.passenger.seat") %>: <%= @booking_seat_flight.seat.number %>
       (<%= seat_class_map[@booking_seat_flight.seat.seat_class] %>)</p>
     <p><%= t("bookings.passenger.checkin_status") %>: <%= @booking_seat_flight.checkin ? t("bookings.passenger.completed") : t("bookings.passenger.not_completed") %></p>
+    <%= image_tag "QR_567681.png", size: "248x248", alt: "Blue Ticket" %>
   </div>
 </div>
 
-<%= form_tag booking_seat_flight_booking_path(@booking_seat_flight, @booking), method: :patch, class: "form" do %>
-  <%= render "shared/errors", obj: @booking %>
-  <div>
-    <%= label_tag :booking_id, t("bookings.passenger.booking_number") %>
-    <%= text_field_tag :booking_id, @booking.id, class: "form-select" %>
-  </div>
-  <div>
-    <%= label_tag :passenger_telephone_number, t("bookings.passenger.telephone_number") %>
-    <%= text_field_tag :passenger_telephone_number, params[:passenger_telephone_number], class: "form-select" %>
-  </div>
-  <div>
-    <%= submit_tag t("bookings.passenger.check_in"), class: "submit-button" %>
-  </div>
-<% end %>
+

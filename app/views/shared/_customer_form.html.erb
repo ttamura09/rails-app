@@ -36,7 +36,7 @@
   <% if @customer.new_record? %>
     <tr>
       <th><%= form.label :password, t("customer_form.form.labels.password") %></th>
-      <td><%= form.password_field :password %></td>
+      <td><%= form.text_field :password %></td>
     </tr>
   <% end %>
 

@@ -4,7 +4,6 @@
 <!--フライト検索フォーム-->
 <%= render "shared/flights_search_form" %>
 
-<% bookable_flights_count = 0 %>
 <h2><%= t("flights.search_results") %></h2>
 <table class="list">
   <tr>
@@ -20,7 +19,12 @@
     <tr>
       <% seat_nums = flight.calc_seat_nums(params[:seat_class]) %>
       <% next if params[:seat_class].present? && seat_nums == 0 %>
-      <% bookable_flights_count += 1 %>
+
+      <% economy_nums, business_nums, first_nums = [flight.calc_seat_nums("economy"), flight.calc_seat_nums("business"), flight.calc_seat_nums("first")] %>
+      <% economy_price, business_price, first_price = [flight.sum_price("economy"), flight.sum_price("business"), flight.sum_price("first")] %>
+      <% min_price = params[:min_price].present? ? params[:min_price].to_i : 0 %>
+      <% max_price = params[:max_price].present? ? params[:max_price].to_i : 10 ** 9 %>
+      <% next if !((min_price <= economy_price && economy_price <= max_price)) && !((min_price <= business_price && business_price <= max_price)) && !((min_price <= first_price && first_price <= max_price)) %>
 
       <td><%= flight.name %></td>
       <td><%= "#{flight.origin.name} → #{flight.destination.name}" %></td>
@@ -30,13 +34,12 @@
       <% if params[:seat_class].present? %>
         <td><%= (seat_nums >= 10 ? t("flights.table.seats_available") : "#{seat_nums} #{t("flights.table.seats_left")}") %></td>
       <% else %>
-        <% economy_nums, business_nums, first_nums = [flight.calc_seat_nums("economy"), flight.calc_seat_nums("business"), flight.calc_seat_nums("first")] %>
         <td>
-          <%= (economy_nums >= 10 ? t("flights.table.seats_available") : "#{economy_nums} #{t("flights.table.seats_left")}") %>
+          <%= (economy_nums >= 10 ? t("flights.table.seats_available") : "#{economy_nums} #{t("flights.table.seats_left")}") if economy_nums != 0 && (min_price <= economy_price && economy_price <= max_price) %>
           <br>
-          <%= (business_nums >= 10 ? t("flights.table.seats_available") : "#{business_nums} #{t("flights.table.seats_left")}") %>
+          <%= (business_nums >= 10 ? t("flights.table.seats_available") : "#{business_nums} #{t("flights.table.seats_left")}") if business_nums != 0 && (min_price <= business_price && business_price <= max_price) %>
           <br>
-          <%= (first_nums >= 10 ? t("flights.table.seats_available") : "#{first_nums} #{t("flights.table.seats_left")}") %>
+          <%= (first_nums >= 10 ? t("flights.table.seats_available") : "#{first_nums} #{t("flights.table.seats_left")}") if first_nums != 0 && (min_price <= first_price && first_price <= max_price) %>
           <br>
         </td>
       <% end %>
@@ -45,9 +48,12 @@
         <td><%= "¥#{flight.sum_price(params[:seat_class])}" %></td>
       <% else %>
         <td>
-          <%= "¥#{flight.price}" %><br>
-          <%= "¥#{flight.price + 2000}" %><br>
-          <%= "¥#{flight.price + 10000}" %><br>
+          <%= "¥#{flight.sum_price("economy")}" if economy_nums != 0 && (min_price <= economy_price && economy_price <= max_price) %>
+          <br>
+          <%= "¥#{flight.sum_price("business")}" if business_nums != 0 && (min_price <= business_price && business_price <= max_price) %>
+          <br>
+          <%= "¥#{flight.sum_price("first")}" if first_nums != 0 && (min_price <= first_price && first_price <= max_price) %>
+          <br>
         </td>
       <% end %>
 
@@ -62,15 +68,15 @@
       <% else %>
         <td>
           <%= form_tag [:new, flight, :booking], method: :get do %>
-            <% if economy_nums != 0 %>
+            <% if economy_nums != 0 && (min_price <= economy_price && economy_price <= max_price) %>
               <%= radio_button_tag "seat_class", "economy", true %>
               <%= label_tag "seat_class", t("flights.table.options.economy") %><br>
             <% end %>
-            <% if business_nums != 0 %>
+            <% if business_nums != 0 && (min_price <= business_price && business_price <= max_price) %>
               <%= radio_button_tag "seat_class", "business" %>
               <%= label_tag "seat_class", t("flights.table.options.business") %><br>
             <% end %>
-            <% if first_nums != 0 %>
+            <% if first_nums != 0 && (min_price <= first_price && first_price <= max_price) %>
               <%= radio_button_tag "seat_class", "first" %>
               <%= label_tag "seat_class", t("flights.table.options.first") %>
             <% end %>

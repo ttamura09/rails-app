@@ -14,17 +14,15 @@
     <th><%= t("account.gender") %></th>
     <th><%= t("account.birthday") %></th>
     <th><%= t("account.email") %></th>
-    <th><%= t("account.details") %></th>
   </tr>
   <% @customers.each do |customer| %>
     <tr>
-      <td><%= customer.name %></td>
+      <td><%= link_to customer.name, customer %></td>
       <td><%= customer.alph_name %></td>
       <td><%= customer.login_name %></td>
       <td><%= (customer.sex == 1 ? t("account.options.male") : t("account.options.female")) %></td>
       <td><%= customer.birthday %></td>
       <td><%= customer.email %></td>
-      <td><%= link_to t("account.account_details"), customer %></td>
     </tr>
   <% end %>
 </table>

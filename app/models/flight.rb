@@ -34,7 +34,7 @@ class Flight < ApplicationRecord
         economy_nums -= 1
       elsif booking_seat_flight.seat.seat_class == "business"
         business_nums -= 1
-      else
+      elsif booking_seat_flight.seat.seat_class == "first"
         first_nums -= 1
       end
     end
@@ -43,8 +43,10 @@ class Flight < ApplicationRecord
       res = economy_nums
     elsif seat_class == "business"
       res = business_nums
-    else
+    elsif seat_class == "first"
       res = first_nums
+    else
+      res = economy_nums + business_nums + first_nums
     end
     res
   end
@@ -78,13 +80,9 @@ class Flight < ApplicationRecord
       # 下限料金の絞り込み
       if params[:min_price].present?
         if params[:seat_class].present?
-          min_adj = case params[:seat_class]
-                    when "economy" then 0
-                    when "business" then 2000
-                    else 10000
-                    end
+          min_adj = adj_price(params[:seat_class])
         else
-          min_adj = 0
+          min_adj = 10000
         end
         min_price = params[:min_price].to_i - min_adj
         results = results.where("price >= ?", min_price)
@@ -93,13 +91,9 @@ class Flight < ApplicationRecord
       # 上限料金の絞り込み
       if params[:max_price].present?
         if params[:seas_class].present?
-          max_adj = case params[:seat_class]
-                    when "economy" then 0
-                    when "business" then 2000
-                    else 10000
-                    end
+          max_adj = adj_price(params[:seat_class])
         else
-          max_adj = 10000
+          max_adj = 0
         end
         max_price = params[:max_price].to_i - max_adj
         results = results.where("price <= ?", max_price)
@@ -114,9 +108,15 @@ class Flight < ApplicationRecord
           results = results.where("arrival_time <= ?", time)
         end
       end
-
       results
     end
 
+    private def adj_price(seat_class)
+      case seat_class
+      when "economy" then 0
+      when "business" then 2000
+      else 10000
+      end
+    end
   end
 end

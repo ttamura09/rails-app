@@ -1,60 +1,54 @@
 <h2><%= t("top_page.flight_search") %></h2>
-<%= form_tag :flights, method: :get do %>
-  <table class="attr">
-    <tr>
-      <th><%= label_tag :origin, t("flights_search_form.labels.origin") %></th>
-      <td><%= select_tag :origin, options_for_select(Airport.all.map { |airport| [airport.name, airport.id] }, params[:origin]), include_blank: t("flights_search_form.select_prompt") %></td>
-    </tr>
+<%= form_tag :flights, method: :get, class: "form" do %>
+  <div class="form-group">
+    <%= label_tag :origin, t("flights_search_form.labels.origin"), class: "form-label" %>
+    <%= select_tag :origin, options_for_select(Airport.all.map { |airport| [airport.name, airport.id] }, params[:origin]), include_blank: t("flights_search_form.select_prompt"), class: "form-select" %>
+  </div>
+  <div class="form-group">
+    <%= label_tag :destination, t("flights_search_form.labels.destination"), class: "form-label" %>
+    <%= select_tag :destination, options_for_select(Airport.all.map { |airport| [airport.name, airport.id] }, params[:destination]), include_blank: t("flights_search_form.select_prompt"), class: "form-select" %>
+  </div>
+  <div class="form-group">
+    <%= label_tag :departure_date, t("flights_search_form.labels.departure_date") %>
+    <%= date_field_tag :departure_date, (params[:departure_date] ? params[:departure_date] : ""), include_blank: t("flights_search_form.select_prompt"), class: "form-select" %>
+    <%#= date_field_tag :departure_date, (params[:departure_date] ? params[:departure_date] : Time.now.to_date), class: "form-select" %>
+  </div>
 
-    <tr>
-      <th><%= label_tag :destination, t("flights_search_form.labels.destination") %></th>
-      <td><%= select_tag :destination, options_for_select(Airport.all.map { |airport| [airport.name, airport.id] }, params[:destination]), include_blank: t("flights_search_form.select_prompt") %></td>
-    </tr>
+  <details open class="details">
+    <summary class="details-summary icon-arrow"></summary>
+    <div class="form-group">
+      <%= label_tag "price", t("flights_search_form.labels.price") %>
+      <%= select_tag :min_price, options_for_select(
+        (0..30).map { |n| ["¥#{n * 1000}", n * 1000] }, params[:min_price]
+      ), include_blank: t("flights_search_form.select_prompt"), class: "form-select" %>
+      ~
+      <%= select_tag :max_price, options_for_select(
+        (0..30).map { |n| ["¥#{n * 1000}", n * 1000] },
+        params[:max_price]
+      ), include_blank: t("flights_search_form.select_prompt"), class: "form-select" %>
+    </div>
 
-    <tr>
-      <th><%= label_tag :departure_date, t("flights_search_form.labels.departure_date") %></th>
-      <td><%= date_field_tag :departure_date, (params[:departure_date] ? params[:departure_date] : Time.now.to_date) %></td>
-    </tr>
+    <div class="form-group">
+      <%= label_tag :time, t("flights_search_form.labels.time") %>
+      <%= time_field_tag :time, params[:time] , class: "form-select"%>
+      <%= label_tag :selected_time_type_departure, t("flights_search_form.labels.departure_time") %>
+      <%= radio_button_tag :selected_time_type, "departure", params[:selected_time_type] == "departure" %>
+      <%= label_tag :selected_time_type_arrival, t("flights_search_form.labels.arrival_time") %>
+      <%= radio_button_tag :selected_time_type, "arrival", params[:selected_time_type] == "arrival" %>
+    </div>
+    <div class="form-group">
+      <%= label_tag :seat_class, t("flights_search_form.labels.seat_class") %>
+      <%= select_tag :seat_class, options_for_select([
+                                                       [t("flights_search_form.options.economy"), "economy"],
+                                                       [t("flights_search_form.options.business"), "business"],
+                                                       [t("flights_search_form.options.first"), "first"]
+                                                     ], params[:seat_class]), include_blank: t("flights_search_form.select_prompt"), class: "form-select" %>
+    </div>
+    <div class="form-group">
+      <%= label_tag :number_of_passengers, t("flights_search_form.labels.number_of_passengers") %>
+      <%= select_tag :number_of_passengers, options_for_select([1, 2, 3], params[:number_of_passengers]), class: "form-select" %>
+    </div>
+  </details>
 
-    <tr>
-      <th><%= label_tag "price", t("flights_search_form.labels.price") %></th>
-      <td>
-        <%= select_tag :min_price, options_for_select(
-          (0..30).map { |n| ["¥#{n * 1000}", n * 1000] }, params[:min_price]
-        ), include_blank: t("flights_search_form.select_prompt") %>
-        ~
-        <%= select_tag :max_price, options_for_select(
-          (0..30).map { |n| ["¥#{n * 1000}", n * 1000] },
-          params[:max_price]
-        ), include_blank: t("flights_search_form.select_prompt") %>
-      </td>
-    </tr>
-
-    <tr>
-      <th><%= label_tag :time, t("flights_search_form.labels.time") %></th>
-      <td>
-        <%= time_field_tag :time, params[:time] %>
-        <%= label_tag :selected_time_type_departure, t("flights_search_form.labels.departure_time") %>
-        <%= radio_button_tag :selected_time_type, "departure", params[:selected_time_type] == "departure" %>
-        <%= label_tag :selected_time_type_arrival, t("flights_search_form.labels.arrival_time") %>
-        <%= radio_button_tag :selected_time_type, "arrival", params[:selected_time_type] == "arrival" %>
-      </td>
-    </tr>
-
-    <tr>
-      <th><%= label_tag :seat_class, t("flights_search_form.labels.seat_class") %></th>
-      <td><%= select_tag :seat_class, options_for_select([
-                                                           [t("flights_search_form.options.economy"), "economy"],
-                                                           [t("flights_search_form.options.business"), "business"],
-                                                           [t("flights_search_form.options.first"), "first"]
-                                                         ], params[:seat_class]), include_blank: t("flights_search_form.select_prompt") %>
-      </td>
-    </tr>
-
-    <tr>
-      <th><%= label_tag :number_of_passengers, t("flights_search_form.labels.number_of_passengers") %></th>
-      <td><%= select_tag :number_of_passengers, options_for_select([1, 2, 3], params[:number_of_passengers]) %></td>
-    </tr>
-  </table>
-  <%= submit_tag t("flights_search_form.submit") %>
+  <%= submit_tag t("flights_search_form.submit"), class: "submit-button" %>
 <% end %>
