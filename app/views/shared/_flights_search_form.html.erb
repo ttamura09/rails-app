@@ -1,11 +1,11 @@
 <h2><%= t("top_page.flight_search") %></h2>
 <%= form_tag :flights, method: :get, class: "form" do %>
   <div class="form-group">
-    <%= label_tag :origin, t("flights_search_form.labels.origin"), class: "form-label" %>
+    <%= label_tag :origin, t("flights_search_form.labels.origin") %>
     <%= select_tag :origin, options_for_select(Airport.all.map { |airport| [airport.name, airport.id] }, params[:origin]), include_blank: t("flights_search_form.select_prompt"), class: "form-select" %>
   </div>
   <div class="form-group">
-    <%= label_tag :destination, t("flights_search_form.labels.destination"), class: "form-label" %>
+    <%= label_tag :destination, t("flights_search_form.labels.destination") %>
     <%= select_tag :destination, options_for_select(Airport.all.map { |airport| [airport.name, airport.id] }, params[:destination]), include_blank: t("flights_search_form.select_prompt"), class: "form-select" %>
   </div>
   <div class="form-group">

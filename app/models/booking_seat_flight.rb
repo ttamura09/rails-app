@@ -10,9 +10,9 @@ class BookingSeatFlight < ApplicationRecord
             format: { with: /\A[0-9-()]*\z/, allow_blank: true },
             length: { minimum: 8, maximum: 20, allow_blank: true }
 
-  validate :check_seat_availability, :on => :create
+  validate :check_seat, :on => :create
 
-  def check_seat_availability
+  def check_seat
     return unless BookingSeatFlight.where(seat_id: seat_id, flight_id: flight_id).exists?
     seat_number = Seat.find(seat_id).number
     flight_name = Flight.find(flight_id).name

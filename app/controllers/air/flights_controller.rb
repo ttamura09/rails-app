@@ -15,17 +15,17 @@ class Air::FlightsController < Air::Base
     @flight = Flight.new(flight_params)
     @flight.airline_id = current_airline.id
 
-    departure = DateTime.parse("#{flight_params[:departure_date]} #{flight_params[:departure_time]}")
-    arrival = DateTime.parse("#{flight_params[:arrival_date]} #{flight_params[:arrival_time]}")
+    departure = Time.parse("#{flight_params[:departure_date]} #{flight_params[:departure_time]}")
+    arrival = Time.parse("#{flight_params[:arrival_date]} #{flight_params[:arrival_time]}")
     if @flight.origin_id == @flight.destination_id
       flash.now[:notice] = t("flights.table.different_airports")
-    elsif departure < DateTime.now || arrival < DateTime.now
+    elsif departure <= Time.now || arrival <= Time.now
       flash.now[:notice] = t("flights.table.past_date_not_allowed")
     elsif departure >= arrival
       flash.now[:notice] = t("flights.table.departure_before_arrival")
     end
 
-    if @flight.origin_id != @flight.destination_id && (departure >= DateTime.now || arrival >= DateTime.now) && departure < arrival && @flight.save
+    if @flight.origin_id != @flight.destination_id && (departure > Time.now && arrival > Time.now) && departure < arrival && @flight.save
       redirect_to [:new, :air, :flight], notice: t("flights.table.flight_added")
     else
       @bookings = Booking.order("id").page(params[:page]).per(30)

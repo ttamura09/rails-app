@@ -29,14 +29,6 @@
     <th><%= t("bookings.table.times") %></th>
     <th><%= t("bookings.passenger.check_in") %></th>
     <th><%= t("flights.table.flight_details") %></th>
-
-    <!--    <th><%#= t("bookings.table.class") %></th>-->
-    <!--    <th><%#= t("bookings.table.number_of_passengers") %></th>-->
-    <!--    <th><%#= t("bookings.table.total_price") %></th>-->
-    <!--    <th><%#= t("bookings.table.payment_method") %></th>-->
-    <!--    <th><%#= t("bookings.passenger.checkin_status") %></th>-->
-    <!--    <th><%#= t("bookings.passenger.check_in") %></th>-->
-    <!--    <th><%#= t("bookings.delete_booking") %></th>-->
   </tr>
   <% @bookings.each do |booking| %>
     <tr>
@@ -51,7 +43,8 @@
             <p>
               <%= form_for [:admin, bsf, booking] do |form| %>
                 <%= render "shared/errors", obj: booking %>
-                <%= bsf.passenger_name %><%= bsf.seat.number %>: <%= bsf.checkin ? t("bookings.passenger.completed") : t("bookings.passenger.not_completed") %><%= form.submit t("bookings.passenger.check_in") %>
+                <%= bsf.passenger_name %><%= bsf.seat.number %>: <%= bsf.checkin ? t("bookings.passenger.completed") : t("bookings.passenger.not_completed") %>
+                <%= form.submit t("bookings.passenger.check_in") unless bsf.checkin %>
               <% end %>
             </p>
           <% end %>
